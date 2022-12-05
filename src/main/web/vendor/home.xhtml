@@ -1,0 +1,88 @@
+<ui:composition template="/WEB-INF/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+    <f:metadata>
+        <f:event listener="#{auth.isVendor}" type="preRenderView" />
+    </f:metadata>
+
+    <!-- TITLE -->
+    <ui:define name="title">Dream Car - Vendor Home Page</ui:define>
+
+    <!-- NAV BAR -->
+    <ui:define name="navbar">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light mt-4">
+            <h:link class="navbar-brand" outcome="/vendor/home?faces-redirect=true">
+                <h:graphicImage class="img-fluid" width="100" height="100" value="/resource/img/logo1.png" />
+            </h:link>
+            <div class="navbar-nav ml-auto">
+                <h:link class="nav-item nav-link" target="_self" value="Home" outcome="/vendor/home?faces-redirect=true"/>
+                <h:link class="nav-item nav-link" target="_self" value="Profile" outcome="/vendor/profile?faces-redirect=true"/>
+                <h:form>
+                    <h:commandLink class="nav-item nav-link" value="Logout" action="#{auth.logout}"/>
+                </h:form>
+            </div>
+        </nav>
+    </ui:define>
+
+    <!-- CONTENT -->
+    <ui:define name="content">
+        <f:view afterPhase="#{auth.removeSessionAttributeAfterRender}">
+            <div class="row mt-3 mx-0 justify-content-center">
+                <div class="col-6 text-center align-self-center">
+                    <h:panelGroup id="successMessage" rendered="#{not empty renderMessage}" >
+
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Congratulations!</strong><h:outputText value="#{message}" />
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&#xd7;</span>
+                            </button>
+                        </div>
+                    </h:panelGroup>
+                </div>
+            </div>
+        </f:view>
+        <div class="row mx-0">
+            <div class="col-md-12 mt-4 mx-0 p-0">
+                <h3>All orders</h3>
+                <h:dataTable value="#{order.orders}" var="orderv" class="table mt-3">
+                    <h:column>
+                        <f:facet name="header">PO Number</f:facet>
+                            #{orderv.poNumber}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Open</f:facet>
+                            #{orderv.status}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Date</f:facet>
+                            #{orderv.orderDate}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Needed by</f:facet>
+                            #{orderv.dueDate}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Component</f:facet>
+                            #{orderv.component}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Quantity</f:facet>
+                            #{orderv.qt}
+                    </h:column>
+                    <h:column>
+                        <h:link value="New offer" outcome="/vendor/new-offer.xhtml?faces-redirect=true" >
+                            <f:param name="orderId" value="#{orderv.orderId}"/>
+                        </h:link>
+                    </h:column>
+                    <h:column>
+                        <h:outputText value="#{'Offers: '.concat(orderv.bidList.size())}" />
+                    </h:column>
+                </h:dataTable>
+            </div> 
+        </div>
+    </ui:define>
+</ui:composition>
