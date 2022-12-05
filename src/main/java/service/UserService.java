@@ -84,7 +84,7 @@ public class UserService {
             this.profileDao.getEm().getEntityManagerFactory().getCache().evictAll();
 
             // set the message for success
-            String message = "The user has been registeres!";
+            String message = "The user has been registered!";
 
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage(message));
