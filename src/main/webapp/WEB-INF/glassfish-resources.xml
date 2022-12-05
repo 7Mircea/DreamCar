@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--<!DOCTYPE resources PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Resource Definitions//EN" "http://glassfish.org/dtds/glassfish-resources_1_5.dtd">-->
+<!DOCTYPE resources PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Resource Definitions//EN"
+        "http://glassfish.org/dtds/glassfish-resources_1_5.dtd">
 <resources>
     <jdbc-connection-pool allow-non-component-callers="false" associate-with-thread="false"
                           connection-creation-retry-attempts="0" connection-creation-retry-interval-in-seconds="10"
@@ -18,7 +19,7 @@
         <property name="databaseName" value="dreamcar"/>
         <property name="User" value="student"/>
         <property name="Password" value="test"/>
-        <property name="URL" value="jdbc:postgresql://localhost:5432/postgres"/>
+        <property name="URL" value="jdbc:derby://localhost:1527/dreamcar"/>
         <property name="driverClass" value="org.apache.derby.jdbc.ClientDriver"/>
     </jdbc-connection-pool>
     <jdbc-resource enabled="true" jndi-name="java:app/conexiune2" object-type="user"

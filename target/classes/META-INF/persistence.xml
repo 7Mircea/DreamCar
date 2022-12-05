@@ -5,6 +5,15 @@
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
+      <!-- Allowed values for javax.persistence.schema-generation.database.action are
+
+    none (that doesn't serve anything...)
+    create (which only works the first time the application is started because all further starts fail due to most databases (e.g. derby 11.x) fail if a schema that already exist is created
+    drop-and-create (which wouldn't ever persist any data which raises the question why it's part of a persistence standard specification - assuming debugging purpose)
+    drop (symetrically fails create succeeds
+ -->
+<!--      <property name="eclipselink.target-database"-->
+<!--                value="PostgreSQL"/>-->
     </properties>
   </persistence-unit>
 </persistence>

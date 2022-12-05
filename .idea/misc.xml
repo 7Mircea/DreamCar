@@ -11,6 +11,9 @@
       </list>
     </option>
   </component>
+  <component name="ProjectResources">
+    <default-html-doctype>&quot;http://glassfish.org/dtds/glassfish-resources_1_5.dtd&quot;</default-html-doctype>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8 (3)" project-jdk-type="JavaSDK" />
   <component name="ProjectType">
     <option name="id" value="jpab" />

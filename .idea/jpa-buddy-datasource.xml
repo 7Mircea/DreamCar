@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JpbDataSourceConfig">
+    <data-source-infos>
+      <data-source-info id="b4ea09f4-5d78-4c13-9327-aa0533c65ff5" persistence-unit-name="dreamCarSterge" />
+      <data-source-info id="b4ea09f4-5d78-4c13-9327-aa0533c65ff5" persistence-unit-name="dreamcarPU" />
+    </data-source-infos>
+  </component>
+</project>
