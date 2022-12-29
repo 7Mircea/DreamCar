@@ -6,7 +6,7 @@
                 xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
     <f:metadata>
-        <f:event listener="#{auth.isVendor}" type="preRenderView" />
+        <f:event listener="#{login.isVendor}" type="preRenderView" />
     </f:metadata>
 
     <!-- TITLE -->
@@ -22,7 +22,7 @@
                 <h:link class="nav-item nav-link" target="_self" value="Home" outcome="/vendor/home?faces-redirect=true"/>
                 <h:link class="nav-item nav-link" target="_self" value="Profile" outcome="/vendor/profile?faces-redirect=true"/>
                 <h:form>
-                    <h:commandLink class="nav-item nav-link" value="Logout" action="#{auth.logout}"/>
+                    <h:commandLink class="nav-item nav-link" value="Logout" action="#{login.logout}"/>
                 </h:form>
             </div>
         </nav>

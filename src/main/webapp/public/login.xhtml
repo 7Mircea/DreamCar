@@ -18,13 +18,13 @@
                     <div class="card-body text-left">
                         <h:form>
                             <div class="form-group">
-                                <h:inputText class="form-control" value="#{auth.username}" a:placeholder="Username" id="username"/>
+                                <h:inputText class="form-control" value="#{login.username}" a:placeholder="Username" id="username"/>
                             </div>
                             <div class="form-group">
-                                <h:inputSecret class="form-control" value="#{auth.password}" a:placeholder="Password" id="password"/>
+                                <h:inputSecret class="form-control" value="#{login.password}" a:placeholder="Password" id="password"/>
                             </div>
                             <div class="text-center">
-                                <h:commandButton class="btn btn-light mr-3" value="Login" action="#{auth.login}"/>
+                                <h:commandButton class="btn btn-light mr-3" value="Login" action="#{login.login}"/>
                             </div>
                         </h:form>
                     </div>

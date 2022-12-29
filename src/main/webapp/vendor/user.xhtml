@@ -6,7 +6,7 @@
                 xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
     <f:metadata>
-        <f:event listener="#{auth.isVendor}" type="preRenderView" />
+        <f:event listener="#{login.isVendor}" type="preRenderView" />
     </f:metadata>
 
     <!-- TITLE -->
@@ -22,7 +22,7 @@
                 <h:link class="nav-item nav-link" target="_self" value="Home" outcome="/vendor/home?faces-redirect=true"/>
                 <h:link class="nav-item nav-link" target="_self" value="Profile" outcome="/vendor/profile?faces-redirect=true"/>
                 <h:form>
-                    <h:commandLink class="nav-item nav-link" value="Logout" action="#{auth.logout}"/>
+                    <h:commandLink class="nav-item nav-link" value="Logout" action="#{login.logout}"/>
                 </h:form>
             </div>
         </nav>
@@ -40,19 +40,19 @@
                         <div class="media">
                             <h:graphicImage class="img-fluid mr-3" width="100" height="100" value="/resource/img/vendor.png" />
                             <div class="media-body">
-                                <strong>First Name: </strong><span> <h:outputText value="#{auth.user.profile.firstName}" /> </span>
+                                <strong>First Name: </strong><span> <h:outputText value="#{login.user.profile.firstName}" /> </span>
                                 <br/>
-                                <strong>Last Name: </strong><span> <h:outputText value="#{auth.user.profile.lastName}" /> </span>
+                                <strong>Last Name: </strong><span> <h:outputText value="#{login.user.profile.lastName}" /> </span>
                                 <br/>
                                 <br />
-                                <strong>Phone: </strong><span> <h:outputText value="#{auth.user.profile.phone}" /> </span>
+                                <strong>Phone: </strong><span> <h:outputText value="#{login.user.profile.phone}" /> </span>
                                 <br />
-                                <strong>E-mail: </strong><span> <h:outputText value="#{auth.user.profile.email}" /> </span>
+                                <strong>E-mail: </strong><span> <h:outputText value="#{login.user.profile.email}" /> </span>
                                 <br />
                                 <br />
-                                <strong>Company: </strong><span> <h:outputText value="#{auth.user.profile.company.compName}" /> </span>
+                                <strong>Company: </strong><span> <h:outputText value="#{login.user.profile.company.compName}" /> </span>
                                 <br />
-                                <strong>Country: </strong><span> <h:outputText value="#{auth.user.profile.company.country}" /> </span>
+                                <strong>Country: </strong><span> <h:outputText value="#{login.user.profile.company.country}" /> </span>
                                 <br />
                                 <h:form>
                                     <h:commandButton class="btn btn-block btn-light mt-3" value="Update" action="/vendor/update-profile.xhtml?faces-redirect=true" />
