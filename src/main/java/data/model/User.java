@@ -16,11 +16,11 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Gheoace Mircea
  */
 @Entity
-@Table(name = "USERS")
+@Table(name = "USER")
 @XmlRootElement
 @NamedQueries({
         @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
-        , @NamedQuery(name = "User.findByUserId", query = "SELECT u FROM User u WHERE u.userId = :userId")
+        , @NamedQuery(name = "User.findById", query = "SELECT u FROM User u WHERE u.id = :id")
         , @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username")
         , @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")
         , @NamedQuery(name = "User.findByRole", query = "SELECT u FROM User u WHERE u.role = :role")})
@@ -29,8 +29,8 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    private Integer userId;
+    @Column(name = "id")
+    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
@@ -64,29 +64,29 @@ public class User implements Serializable {
     @Column(name = "last_name")
     private String lastName;
 
-    @JoinColumn(name = "company", referencedColumnName = "comp_id")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @JoinColumn(name = "company_id", referencedColumnName = "id")
+    @ManyToOne(targetEntity = Company.class,optional = false, fetch = FetchType.EAGER)
     private Company company;
 
     public User() {
     }
 
-    public User(Integer userId) {
-        this.userId = userId;
+    public User(Integer id) {
+        this.id = id;
     }
 
-    public User(Integer userId, String username, String password) {
-        this.userId = userId;
+    public User(Integer id, String username, String password) {
+        this.id = id;
         this.username = username;
         this.password = password;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -141,7 +141,7 @@ public class User implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (userId != null ? userId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -152,7 +152,7 @@ public class User implements Serializable {
             return false;
         }
         User other = (User) object;
-        if ((this.userId == null && other.userId != null) || (this.userId != null && !this.userId.equals(other.userId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -160,7 +160,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "model.User[ userId=" + userId + " ]";
+        return "model.User[ id=" + id + " ]";
     }
 
     public List<Bid> getBidList() {

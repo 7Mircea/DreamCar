@@ -29,12 +29,12 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Gheoace Mircea
  */
 @Entity
-@Table(name = "COMPANIES")
+@Table(name = "COMPANY")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Company.findAll", query = "SELECT c FROM Company c")
-    , @NamedQuery(name = "Company.findByCompanyId", query = "SELECT c FROM Company c WHERE c.companyId = :compId")
-    , @NamedQuery(name = "Company.findByCompName", query = "SELECT c FROM Company c WHERE c.name = :compName")
+    , @NamedQuery(name = "Company.findById", query = "SELECT c FROM Company c WHERE c.id = :compId")
+    , @NamedQuery(name = "Company.findByName", query = "SELECT c FROM Company c WHERE c.name = :compName")
     , @NamedQuery(name = "Company.findByCountry", query = "SELECT c FROM Company c WHERE c.country = :country")
     , @NamedQuery(name = "Company.findByCity", query = "SELECT c FROM Company c WHERE c.city = :city")})
 public class Company implements Serializable {
@@ -42,8 +42,8 @@ public class Company implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "company_id")
-    private Integer companyId;
+    @Column(name = "id")
+    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
@@ -62,20 +62,20 @@ public class Company implements Serializable {
     }
 
     public Company(Integer companyId) {
-        this.companyId = companyId;
+        this.id = companyId;
     }
 
     public Company(Integer companyId, String companyName) {
-        this.companyId = companyId;
+        this.id = companyId;
         this.name = companyName;
     }
 
-    public Integer getCompanyId() {
-        return companyId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCompanyId(Integer companyId) {
-        this.companyId = companyId;
+    public void setId(Integer companyId) {
+        this.id = companyId;
     }
 
     public String getName() {
@@ -114,7 +114,7 @@ public class Company implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (companyId != null ? companyId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -125,7 +125,7 @@ public class Company implements Serializable {
             return false;
         }
         Company other = (Company) object;
-        if ((this.companyId == null && other.companyId != null) || (this.companyId != null && !this.companyId.equals(other.companyId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -133,7 +133,7 @@ public class Company implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Company[ compId=" + companyId + " ]";
+        return "model.Company[ compId=" + id + " ]";
     }
 
 }

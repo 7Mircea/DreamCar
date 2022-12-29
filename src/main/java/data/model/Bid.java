@@ -26,12 +26,12 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Gheoace Mircea
  */
 @Entity
-@Table(name = "BIDS")
+@Table(name = "BID")
 @XmlRootElement
 @NamedQueries({
         @NamedQuery(name = "Bid.findAll", query = "SELECT b FROM Bid b")
-        , @NamedQuery(name = "Bid.findByBidId", query = "SELECT b FROM Bid b WHERE b.bidId = :bidId")
-        , @NamedQuery(name = "Bid.findByBidDate", query = "SELECT b FROM Bid b WHERE b.bidDate = :bidDate")
+        , @NamedQuery(name = "Bid.findById", query = "SELECT b FROM Bid b WHERE b.id = :bidId")
+        , @NamedQuery(name = "Bid.findByDate", query = "SELECT b FROM Bid b WHERE b.date = :bidDate")
         , @NamedQuery(name = "Bid.findByPrice", query = "SELECT b FROM Bid b WHERE b.price = :price")})
 public class Bid implements Serializable {
 
@@ -58,8 +58,8 @@ public class Bid implements Serializable {
     @ManyToOne(targetEntity = Auction.class, optional = false, fetch = FetchType.EAGER)
     private Auction auction;
 
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @ManyToOne(targetEntity = User.class,optional = false, fetch = FetchType.EAGER)
     private User user;
 
     public Bid() {
@@ -86,8 +86,8 @@ public class Bid implements Serializable {
         return date;
     }
 
-    public void setBidDate(String bidDate) {
-        this.bidDate = bidDate;
+    public void setBidDate(String date) {
+        this.date = date;
     }
 
     public int getPrice() {
@@ -101,7 +101,7 @@ public class Bid implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (bidId != null ? bidId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -112,7 +112,7 @@ public class Bid implements Serializable {
             return false;
         }
         Bid other = (Bid) object;
-        if ((this.bidId == null && other.bidId != null) || (this.bidId != null && !this.bidId.equals(other.bidId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -120,7 +120,7 @@ public class Bid implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Bid[ bidId=" + bidId + " ]";
+        return "model.Bid[ bidId=" + id + " ]";
     }
 
     public User getUser() {

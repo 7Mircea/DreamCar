@@ -66,7 +66,7 @@ public class BidService {
     @PostConstruct
     public void init() {
         this.bid = new Bid();
-        User dbUser = this.userDao.getUserById(this.auth.getUser().getUserId());
+        User dbUser = this.userDao.getUserById(this.auth.getUser().getId());
         this.userBids = dbUser.getBidList();
     }
 
@@ -90,7 +90,7 @@ public class BidService {
                 // Create the offer
                 this.utx.begin();
                 this.bid.setUser(auth.getUser());
-                this.bid.setPoNumber(auction);
+//                this.bid.setPoNumber(auction);
                 this.bid.setBidDate(offerDate);
                 this.bid.setStatus(Boolean.FALSE);
                 this.bidDao.addBid(this.bid);
@@ -191,7 +191,7 @@ public class BidService {
             this.bidDao.deleteBid(id);
             this.utx.commit();
 
-            User dbUser = this.userDao.getUserById(this.auth.getUser().getUserId());
+            User dbUser = this.userDao.getUserById(this.auth.getUser().getId());
             this.userBids = dbUser.getBidList();
             this.bidDao.getEm().getEntityManagerFactory().getCache().evictAll();
 

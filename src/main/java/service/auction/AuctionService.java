@@ -68,7 +68,7 @@ public class AuctionService {
             utx.begin();
             this.auction.setStatus(Boolean.TRUE);
             this.characteristicDao.setCharacteristicsForProduct(characteristicList);
-            this.auction.setProductId(product.getId());
+            this.auction.setProduct(product);
             this.productDao.addProduct(product);
             this.auctionDao.addAuction(this.auction);
             utx.commit();

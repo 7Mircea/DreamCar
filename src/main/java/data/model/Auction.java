@@ -7,17 +7,7 @@ package data.model;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -27,14 +17,14 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Gheoace Mircea
  */
 @Entity
-@Table(name = "AUCTIONS")
+@Table(name = "AUCTION")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Auction.findAll", query = "SELECT a FROM Auction a")
     , @NamedQuery(name = "Auction.findById", query = "SELECT a FROM Auction a WHERE a.id = :id")
     , @NamedQuery(name = "Auction.findByStatus", query = "SELECT a FROM Auction a WHERE a.status = :status")
-    , @NamedQuery(name = "Auction.findByPostDate", query = "SELECT a FROM Auction a WHERE a.post_date = :post_date")
-    , @NamedQuery(name = "Auction.findByProductId", query = "SELECT a FROM Auction a WHERE a.product_id = :product_id")
+    , @NamedQuery(name = "Auction.findByPostDate", query = "SELECT a FROM Auction a WHERE a.postDate = :post_date")
+    , @NamedQuery(name = "Auction.findByProductId", query = "SELECT a FROM Auction a WHERE a.product = :product")
     , @NamedQuery(name = "Auction.findByDueDate", query = "SELECT a FROM Auction a WHERE a.dueDate = :dueDate")
     , @NamedQuery(name = "Auction.findByQuantity", query = "SELECT a FROM Auction a WHERE a.quantity = :quantity")})
 public class Auction implements Serializable {
@@ -47,20 +37,22 @@ public class Auction implements Serializable {
     @Column(name = "status",nullable = false)
     private Boolean status;
     @Size(max = 30)
-    @Column(name = "date")
-    private String date;
+    @Column(name = "post_date")
+    private String postDate;
 
     @Size(max = 30)
     @Column(name = "due_date")
     private String dueDate;
 
     @Size(max = 50)
-    @Column(name = "product_id")
-    private Integer productId;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "product_id")
+    private Product product;
     @Column(name = "quantity")
     private Integer quantity;//quantity
-    @OneToMany(targetEntity = Bid.class,cascade = CascadeType.ALL, mappedBy = "id", fetch = FetchType.EAGER)
+    @OneToMany(targetEntity = Bid.class,cascade = CascadeType.ALL, mappedBy = "auction", fetch = FetchType.EAGER)
     private List<Bid> bidList;
+
 
     public Auction() {
     }
@@ -85,20 +77,20 @@ public class Auction implements Serializable {
         this.status = status;
     }
 
-    public String getDate() {
-        return date;
+    public String getPostDate() {
+        return postDate;
     }
 
-    public void setDate(String AuctionDate) {
-        this.date = AuctionDate;
+    public void setPostDate(String postDate) {
+        this.postDate = postDate;
     }
 
-    public Integer getProductId() {
-        return productId;
+    public Product getProductId() {
+        return product;
     }
 
-    public void setProductId(Integer component) {
-        this.productId = component;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public String getDueDate() {

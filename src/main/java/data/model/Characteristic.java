@@ -7,7 +7,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "CHARACTERISTICS")
+@Table(name = "CHARACTERISTIC")
 public class Characteristic {
     @Id
     @Column(name = "product_id")
@@ -17,6 +17,9 @@ public class Characteristic {
     Integer characteristicId;
 
     String name;
+    @Size(max = 100)
+    String value;
+
 
     public Integer getProductId() {
         return productId;
@@ -49,7 +52,4 @@ public class Characteristic {
     public void setValue(String value) {
         this.value = value;
     }
-
-    @Size(max = 100)
-    String value;
 }

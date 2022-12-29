@@ -66,8 +66,8 @@ public class UserService {
 
             // Third, add the user profile 
             this.user.setCompany(comp);
-            this.user.setUserId(user.getUserId());
-            this.userDao.addProfile(this.profile);
+            this.user.setId(user.getId());
+//            this.userDao.addProfile(this.profile);
 
             this.utx.commit();
             this.userDao.getEm().getEntityManagerFactory().getCache().evictAll();

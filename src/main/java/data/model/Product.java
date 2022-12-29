@@ -1,13 +1,10 @@
 package data.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "PRODUCTS")
+@Table(name = "PRODUCT")
 public class Product {
     @Id
     @Column
@@ -15,6 +12,9 @@ public class Product {
     @Size(max = 45)
     @Column
     String name;
+
+    @OneToOne(targetEntity = Auction.class, mappedBy = "product")
+    private Auction auction;
 
     public Integer getId() {
         return id;

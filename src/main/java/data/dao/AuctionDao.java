@@ -18,7 +18,7 @@ import java.util.List;
  *
  * @author Gheoace Mircea
  */
-@Named(value = "AuctionDao")
+@Named(value = "auctionDao")
 @RequestScoped
 public class AuctionDao {
 
