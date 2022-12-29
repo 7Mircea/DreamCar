@@ -14,7 +14,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
- *
  * @author Gheoace Mircea
  */
 @Named(value = "bidDao")
@@ -29,15 +28,15 @@ public class BidDao {
         this.em.flush();
         return b;
     }
-    
-    public boolean deleteBid(int id){
-        Query query = this.em.createQuery("DELETE FROM Bid b WHERE b.bidId = :id");
+
+    public boolean deleteBid(int id) {
+        Query query = this.em.createQuery("DELETE FROM Bid b WHERE b.id = :id");
         query.setParameter("id", id);
         int result = query.executeUpdate();
         return result > 0;
     }
-    
-    public Bid findBidById(int id){
+
+    public Bid findBidById(int id) {
         return this.em.find(Bid.class, id);
     }
 
@@ -48,7 +47,5 @@ public class BidDao {
     public void setEm(EntityManager em) {
         this.em = em;
     }
-    
-    
 
 }
