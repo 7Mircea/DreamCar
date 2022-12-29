@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao;
+package data.dao;
 
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
@@ -12,12 +12,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import model.Bid;
-import model.User;
+
+import data.model.User;
 
 /**
  *
- * @author pmadalin
+ * @author Gheoace Mircea
  */
 @Named(value = "userDao")
 @RequestScoped
@@ -57,7 +57,6 @@ public class UserDao {
     }
     
     public List<User> getAllVendors(String role){
-        
         Query query = this.em.createNamedQuery("User.findByRole");
         query.setParameter("role", role);
         List<User> vendors = query.getResultList();

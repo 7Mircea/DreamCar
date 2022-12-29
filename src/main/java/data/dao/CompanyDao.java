@@ -3,43 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao;
+package data.dao;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-
-import model.Bid;
+import data.model.Company;
 
 /**
  *
  * @author Gheoace Mircea
  */
-@Named(value = "bidDao")
+@Named(value = "companyDao")
 @RequestScoped
-public class BidDao {
+public class CompanyDao {
 
     @PersistenceContext
     private EntityManager em;
 
-    public Bid addBid(Bid b) {
-        this.em.persist(b);
+    public Company addCompany(Company comp) {
+        this.em.persist(comp);
         this.em.flush();
-        return b;
-    }
-    
-    public boolean deleteBid(int id){
-        Query query = this.em.createQuery("DELETE FROM Bid b WHERE b.bidId = :id");
-        query.setParameter("id", id);
-        int result = query.executeUpdate();
-        return result > 0;
-    }
-    
-    public Bid findBidById(int id){
-        Bid bid = this.em.find(Bid.class, id);
-        return bid;
+        return comp;
     }
 
     public EntityManager getEm() {
@@ -49,7 +35,5 @@ public class BidDao {
     public void setEm(EntityManager em) {
         this.em = em;
     }
-    
-    
 
 }

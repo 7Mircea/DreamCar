@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package data.model;
 
 import java.io.Serializable;
 import java.util.List;
@@ -26,15 +26,15 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author pmadalin
+ * @author Gheoace Mircea
  */
 @Entity
 @Table(name = "COMPANIES")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Company.findAll", query = "SELECT c FROM Company c")
-    , @NamedQuery(name = "Company.findByCompId", query = "SELECT c FROM Company c WHERE c.compId = :compId")
-    , @NamedQuery(name = "Company.findByCompName", query = "SELECT c FROM Company c WHERE c.compName = :compName")
+    , @NamedQuery(name = "Company.findByCompanyId", query = "SELECT c FROM Company c WHERE c.companyId = :compId")
+    , @NamedQuery(name = "Company.findByCompName", query = "SELECT c FROM Company c WHERE c.name = :compName")
     , @NamedQuery(name = "Company.findByCountry", query = "SELECT c FROM Company c WHERE c.country = :country")
     , @NamedQuery(name = "Company.findByCity", query = "SELECT c FROM Company c WHERE c.city = :city")})
 public class Company implements Serializable {
@@ -42,48 +42,48 @@ public class Company implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "COMP_ID")
-    private Integer compId;
+    @Column(name = "company_id")
+    private Integer companyId;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(name = "COMP_NAME")
-    private String compName;
+    @Column(name = "name")
+    private String name;
     @Size(max = 30)
-    @Column(name = "COUNTRY")
+    @Column(name = "country")
     private String country;
     @Size(max = 30)
-    @Column(name = "CITY")
+    @Column(name = "city")
     private String city;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "company", fetch = FetchType.EAGER)
-    private List<Profile> profileList;
+    @OneToMany(targetEntity = User.class, cascade = CascadeType.ALL, mappedBy = "company", fetch = FetchType.EAGER)
+    private List<User> userList;
 
     public Company() {
     }
 
-    public Company(Integer compId) {
-        this.compId = compId;
+    public Company(Integer companyId) {
+        this.companyId = companyId;
     }
 
-    public Company(Integer compId, String compName) {
-        this.compId = compId;
-        this.compName = compName;
+    public Company(Integer companyId, String companyName) {
+        this.companyId = companyId;
+        this.name = companyName;
     }
 
-    public Integer getCompId() {
-        return compId;
+    public Integer getCompanyId() {
+        return companyId;
     }
 
-    public void setCompId(Integer compId) {
-        this.compId = compId;
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
     }
 
-    public String getCompName() {
-        return compName;
+    public String getName() {
+        return name;
     }
 
-    public void setCompName(String compName) {
-        this.compName = compName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getCountry() {
@@ -103,18 +103,18 @@ public class Company implements Serializable {
     }
 
     @XmlTransient
-    public List<Profile> getProfileList() {
-        return profileList;
+    public List<User> getUserList() {
+        return userList;
     }
 
-    public void setProfileList(List<Profile> profileList) {
-        this.profileList = profileList;
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (compId != null ? compId.hashCode() : 0);
+        hash += (companyId != null ? companyId.hashCode() : 0);
         return hash;
     }
 
@@ -125,7 +125,7 @@ public class Company implements Serializable {
             return false;
         }
         Company other = (Company) object;
-        if ((this.compId == null && other.compId != null) || (this.compId != null && !this.compId.equals(other.compId))) {
+        if ((this.companyId == null && other.companyId != null) || (this.companyId != null && !this.companyId.equals(other.companyId))) {
             return false;
         }
         return true;
@@ -133,7 +133,7 @@ public class Company implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Company[ compId=" + compId + " ]";
+        return "model.Company[ compId=" + companyId + " ]";
     }
 
 }

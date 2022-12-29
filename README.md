@@ -13,9 +13,9 @@ For this project have been used the following APIs:
 
 ## What application does?
 
-Dream Car is a company which produces auto components. This is an internal application which should be used by different vendors to bid for Dream Car placed orders. 
+Dream Car is a company which produces auto components. This is an internal application which should be used by different vendors to bid for Dream Car placed auctions. 
 
-Each vendor has an account and can see the orders placed by company. For one order, multiple vendors can bid. 
+Each vendor has an account and can see the auctions placed by company. For one auction, multiple vendors can bid. 
 
 ## Screenshots
 

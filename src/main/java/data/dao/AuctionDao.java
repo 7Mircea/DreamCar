@@ -3,49 +3,48 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao;
+package data.dao;
 
-import java.util.List;
+import data.model.Auction;
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import model.PoOrder;
+import java.util.List;
 
 /**
  *
- * @author pmadalin
+ * @author Gheoace Mircea
  */
-@Named(value = "poOrderDao")
+@Named(value = "AuctionDao")
 @RequestScoped
-public class PoOrderDao {
+public class AuctionDao {
 
     @PersistenceContext
     private EntityManager em;
 
-    public PoOrder addOrder(PoOrder po) {
-        this.em.persist(po);
+    public Auction addAuction(Auction auction) {
+        this.em.persist(auction);
         this.em.flush();
-        return po;
+        return auction;
     }
     
-    public boolean deleteOrder(int id){
+    public boolean deleteAuction(int id){
         
-        Query query = this.em.createQuery("DELETE FROM PoOrder p WHERE p.orderId = :id");
+        Query query = this.em.createQuery("DELETE FROM Auction a WHERE a.id = :id");
         query.setParameter("id", id);
-        int order = query.executeUpdate();
-        return order > 0;
+        int auctionNr = query.executeUpdate();
+        return auctionNr == 1;
     }
     
-    public List<PoOrder> getAllOrders(){
-        List<PoOrder> orders = this.em.createNamedQuery("PoOrder.findAll").getResultList();
-        return orders;
+    public List<Auction> getAllAuctions(){
+        return this.em.createNamedQuery("Auction.findAll", Auction.class).getResultList();
     }
     
-    public PoOrder findOrderById(int id){
-        PoOrder order = this.em.find(PoOrder.class, id);
-        return order;
+    public Auction findAuctionById(int id){
+        return this.em.find(Auction.class, id);
     }
 
     public EntityManager getEm() {

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package data.model;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -23,68 +23,67 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
- * @author pmadalin
+ * @author Gheoace Mircea
  */
 @Entity
 @Table(name = "BIDS")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Bid.findAll", query = "SELECT b FROM Bid b")
-    , @NamedQuery(name = "Bid.findByBidId", query = "SELECT b FROM Bid b WHERE b.bidId = :bidId")
-    , @NamedQuery(name = "Bid.findByBidDate", query = "SELECT b FROM Bid b WHERE b.bidDate = :bidDate")
-    , @NamedQuery(name = "Bid.findByPrice", query = "SELECT b FROM Bid b WHERE b.price = :price")})
+        @NamedQuery(name = "Bid.findAll", query = "SELECT b FROM Bid b")
+        , @NamedQuery(name = "Bid.findByBidId", query = "SELECT b FROM Bid b WHERE b.bidId = :bidId")
+        , @NamedQuery(name = "Bid.findByBidDate", query = "SELECT b FROM Bid b WHERE b.bidDate = :bidDate")
+        , @NamedQuery(name = "Bid.findByPrice", query = "SELECT b FROM Bid b WHERE b.price = :price")})
 public class Bid implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "BID_ID")
-    private Integer bidId;
+    @Column(name = "id")
+    private Integer id;
     @Size(max = 30)
-    @Column(name = "BID_DATE")
-    private String bidDate;
-    
+    @Column(name = "date")
+    private String date;
+
     @Basic(optional = false)
     @NotNull
-    @Column(name = "PRICE")
+    @Column(name = "price")
     private int price;
-    
+
     @Basic(optional = false)
     @NotNull
-    @Column(name = "STATUS")
+    @Column(name = "status")
     private Boolean status;
-    
-    @JoinColumn(name = "PO_NUMBER", referencedColumnName = "PO_NUMBER")
+
+    @JoinColumn(name = "auction_id", referencedColumnName = "id")
+    @ManyToOne(targetEntity = Auction.class, optional = false, fetch = FetchType.EAGER)
+    private Auction auction;
+
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private PoOrder poNumber;
-    
-    @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private User userId;
+    private User user;
 
     public Bid() {
     }
 
-    public Bid(Integer bidId) {
-        this.bidId = bidId;
+    public Bid(Integer id) {
+        this.id = id;
     }
 
-    public Bid(Integer bidId, int price) {
-        this.bidId = bidId;
+    public Bid(Integer id, int price) {
+        this.id = id;
         this.price = price;
     }
 
     public Integer getBidId() {
-        return bidId;
+        return id;
     }
 
     public void setBidId(Integer bidId) {
-        this.bidId = bidId;
+        this.id = id;
     }
 
     public String getBidDate() {
-        return bidDate;
+        return date;
     }
 
     public void setBidDate(String bidDate) {
@@ -97,14 +96,6 @@ public class Bid implements Serializable {
 
     public void setPrice(int price) {
         this.price = price;
-    }
-
-    public PoOrder getPoNumber() {
-        return poNumber;
-    }
-
-    public void setPoNumber(PoOrder poNumber) {
-        this.poNumber = poNumber;
     }
 
     @Override
@@ -132,12 +123,12 @@ public class Bid implements Serializable {
         return "model.Bid[ bidId=" + bidId + " ]";
     }
 
-    public User getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(User userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Boolean getStatus() {

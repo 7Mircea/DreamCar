@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package service;
+package service.auction;
 
-import dao.PoOrderDao;
+import data.dao.AuctionDao;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -22,113 +22,131 @@ import javax.transaction.NotSupportedException;
 import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
-import model.PoOrder;
+
+import data.dao.CharacteristicDao;
+import data.dao.ProductDao;
+import data.model.Auction;
+import data.model.Characteristic;
+import data.model.Product;
 
 /**
  *
- * @author pmadalin
+ * @author Gheoace Mircea
  */
-@Named(value = "order")
+@Named(value = "auction")
 @RequestScoped
-public class OrderService {
+public class AuctionService {
 
     private UIComponent component;
-    private PoOrder order;
-    private List<PoOrder> orders;
+    private Auction auction;
+
+    private Product product;
+
+    private List<Characteristic> characteristicList;
+    private List<Auction> auctions;
 
     @Inject
-    private PoOrderDao poOrderDao;
+    private AuctionDao auctionDao;
+
+    @Inject
+    private ProductDao productDao;
+
+    @Inject
+    private CharacteristicDao characteristicDao;
 
     @Resource
     private UserTransaction utx;
 
     @PostConstruct
     public void init() {
-        this.order = new PoOrder();
-        this.orders = this.poOrderDao.getAllOrders();
+        this.auction = new Auction();
+        this.auctions = this.auctionDao.getAllAuctions();
     }
 
-    public void addOrder() {
+    public void addAuction() {
         try {
-            this.order.setStatus(Boolean.TRUE);
             utx.begin();
-            this.poOrderDao.addOrder(this.order);
+            this.auction.setStatus(Boolean.TRUE);
+            this.characteristicDao.setCharacteristicsForProduct(characteristicList);
+            this.auction.setProductId(product.getId());
+            this.productDao.addProduct(product);
+            this.auctionDao.addAuction(this.auction);
             utx.commit();
 
             HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
             session.setAttribute("renderMessage", true);
-            session.setAttribute("message", " The order has been added!");
+            session.setAttribute("message", " The auction has been added!");
 
             FacesContext context = FacesContext.getCurrentInstance();
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) context.getApplication().getNavigationHandler();
-            nav.performNavigation("/admin/home.xhtml?faces-redirect=true");
+            nav.performNavigation("/admin/auctions.xhtml?faces-redirect=true");
 
         } catch (Exception e) {
-            throw new RuntimeException("Samething wrong happen with addOrder() transaction");
+            throw new RuntimeException("Something wrong happen with addAuction() transaction");
         }
 
     }
 
-    public void closeOrder(int id) {
+    public void closeAuction(int id) {
 
-        PoOrder order_db = this.poOrderDao.findOrderById(id);
+        Auction auction_db = this.auctionDao.findAuctionById(id);
 
         try {
 
             // Update the status
             utx.begin();
-            order_db.setStatus(Boolean.FALSE);
-            this.poOrderDao.getEm().merge(order_db);
-            this.poOrderDao.getEm().flush();
+            auction_db.setStatus(Boolean.FALSE);
+            this.auctionDao.getEm().merge(auction_db);
+            this.auctionDao.getEm().flush();
             utx.commit();
 
             HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
             session.setAttribute("renderMessage", true);
-            session.setAttribute("message", " The order has been closed!");
+            session.setAttribute("message", " The auction has been closed!");
 
             // Reload the home page
             FacesContext context = FacesContext.getCurrentInstance();
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) context.getApplication().getNavigationHandler();
-            nav.performNavigation("/admin/home.xhtml?faces-redirect=true");
+            nav.performNavigation("/admin/auctions.xhtml?faces-redirect=true");
 
         } catch (IllegalStateException | SecurityException | HeuristicMixedException | HeuristicRollbackException | NotSupportedException | RollbackException | SystemException e) {
             e.printStackTrace();
         }
     }
 
-    public void openOrder(int id) {
+    public void openAuction(int id) {
 
-        PoOrder order_db = this.poOrderDao.findOrderById(id);
+        Auction auction_db = this.auctionDao.findAuctionById(id);
 
         try {
 
             // Update the status
             utx.begin();
-            order_db.setStatus(Boolean.TRUE);
-            this.poOrderDao.getEm().merge(order_db);
-            this.poOrderDao.getEm().flush();
+            auction_db.setStatus(Boolean.TRUE);
+            this.auctionDao.getEm().merge(auction_db);
+            this.auctionDao.getEm().flush();
             utx.commit();
 
             HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
             session.setAttribute("renderMessage", true);
-            session.setAttribute("message", " The order has been opened!");
+            session.setAttribute("message", " The auction has been opened!");
 
             // Reload the home page
             FacesContext context = FacesContext.getCurrentInstance();
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) context.getApplication().getNavigationHandler();
-            nav.performNavigation("/admin/home.xhtml?faces-redirect=true");
+            nav.performNavigation("/admin/auctions.xhtml?faces-redirect=true");
 
         } catch (IllegalStateException | SecurityException | HeuristicMixedException | HeuristicRollbackException | NotSupportedException | RollbackException | SystemException e) {
             e.printStackTrace();
         }
     }
 
-    public void deleteOrder(int id) {
+    public void deleteAuction(int id) {
 
         try {
 
             utx.begin();
-            this.poOrderDao.deleteOrder(id);
+            this.auctionDao.deleteAuction(id);
             utx.commit();
         } catch (IllegalStateException | SecurityException | HeuristicMixedException | HeuristicRollbackException | NotSupportedException | RollbackException | SystemException e) {
             e.printStackTrace();
@@ -136,28 +154,35 @@ public class OrderService {
 
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         session.setAttribute("renderMessage", true);
-        session.setAttribute("message", " The order has been deleted!");
+        session.setAttribute("message", " The auction has been deleted!");
 
         // Reload the home page
         FacesContext context = FacesContext.getCurrentInstance();
         ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) context.getApplication().getNavigationHandler();
-        nav.performNavigation("/admin/home.xhtml?faces-redirect=true");
+        nav.performNavigation("/admin/auctions.xhtml?faces-redirect=true");
     }
 
-    public PoOrder getOrder() {
-        return order;
+    /**
+     * check if the opened auctions can be closed
+     */
+    public void checkAuctions() {
+
     }
 
-    public void setOrder(PoOrder order) {
-        this.order = order;
+    public Auction getAuction() {
+        return auction;
     }
 
-    public List<PoOrder> getOrders() {
-        return orders;
+    public void setAuction(Auction auction) {
+        this.auction = auction;
     }
 
-    public void setOrders(List<PoOrder> orders) {
-        this.orders = orders;
+    public List<Auction> getAuctions() {
+        return auctions;
+    }
+
+    public void setAuctions(List<Auction> auctions) {
+        this.auctions = auctions;
     }
 
     public UIComponent getComponent() {

@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package service;
+package service.auction;
 
-import dao.BidDao;
-import dao.PoOrderDao;
-import dao.UserDao;
+import data.dao.BidDao;
+import data.dao.AuctionDao;
+import data.dao.UserDao;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -27,22 +27,23 @@ import javax.transaction.NotSupportedException;
 import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
-import model.Bid;
-import model.PoOrder;
-import model.User;
+import data.model.Bid;
+import data.model.Auction;
+import data.model.User;
+import service.user.LoginService;
 
 /**
  *
- * @author pmadalin
+ * @author Gheoace Mircea
  */
 @Named(value = "bidService")
 @RequestScoped
 public class BidService {
 
-    private int orderId;
+    private int auctionId;
     private UIComponent component;
     private Bid bid;
-    private PoOrder order;
+    private Auction auction;
     private List<Bid> bids;
     private List<Bid> userBids;
     private User user;
@@ -54,10 +55,10 @@ public class BidService {
     private BidDao bidDao;
 
     @Inject
-    private PoOrderDao orderDao;
+    private AuctionDao auctionDao;
 
     @Inject
-    private AuthService auth;
+    private LoginService auth;
 
     @Resource
     private UserTransaction utx;
@@ -71,12 +72,12 @@ public class BidService {
 
     public void addBid() {
 
-        // Get the param send from new-offer.xhtml page
+        // Get the param send from create-bid.xhtml page
         FacesContext fc = FacesContext.getCurrentInstance();
         Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
 
-        // Get the order from database
-        this.order = this.orderDao.findOrderById(Integer.parseInt(params.get("orderId")));
+        // Get the auction from database
+        this.auction = this.auctionDao.findAuctionById(Integer.parseInt(params.get("auctionId")));
 
         // Get the current date
         Date date = new Date();
@@ -85,11 +86,11 @@ public class BidService {
 
         try {
 
-            if (this.order != null) {
+            if (this.auction != null) {
                 // Create the offer
                 this.utx.begin();
-                this.bid.setUserId(auth.getUser());
-                this.bid.setPoNumber(order);
+                this.bid.setUser(auth.getUser());
+                this.bid.setPoNumber(auction);
                 this.bid.setBidDate(offerDate);
                 this.bid.setStatus(Boolean.FALSE);
                 this.bidDao.addBid(this.bid);
@@ -99,10 +100,10 @@ public class BidService {
 
                 HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
                 session.setAttribute("renderMessage", true);
-                session.setAttribute("message", " Your offer has been added to the order!");
+                session.setAttribute("message", " Your offer has been added to the auction!");
 
                 ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
-                nav.performNavigation("/vendor/home.xhtml?faces-redirect=true");
+                nav.performNavigation("/vendor/auctions.xhtml?faces-redirect=true");
 
             }
 
@@ -110,30 +111,30 @@ public class BidService {
             e.printStackTrace();
 
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
-            nav.performNavigation("/vendor/home.xhtml?faces-redirect=true");
+            nav.performNavigation("/vendor/auctions.xhtml?faces-redirect=true");
         }
     }
 
-    public void getAllBidsForAnOrder() {
+    public void getAllBidsForAnAuction() {
 
-        // get the order
-        PoOrder selected_order = this.orderDao.findOrderById(this.orderId);
+        // get the Auction
+        Auction selected_auction = this.auctionDao.findAuctionById(this.auctionId);
 
-        if (selected_order != null) {
+        if (selected_auction != null) {
 
-            this.bids = selected_order.getBidList();
-            this.order = selected_order;
+            this.bids = selected_auction.getBidList();
+            this.auction = selected_auction;
         }
     }
 
     public String acceptBid() {
 
-        // Get the param send from new-offer.xhtml page
+        // Get the param send from create-bid.xhtml page
         FacesContext fc = FacesContext.getCurrentInstance();
         Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
 
-        this.orderId = Integer.parseInt(params.get("orderId"));
-        this.order = this.orderDao.findOrderById(this.orderId);
+        this.auctionId = Integer.parseInt(params.get("auctionId"));
+        this.auction = this.auctionDao.findAuctionById(this.auctionId);
         String bidId = params.get("bidId");
 
         if (bidId != null) {
@@ -150,18 +151,18 @@ public class BidService {
             }
         }
 
-        return "/admin/offers.xhtml?faces-redirect=true&orderId=" + this.orderId;
+        return "/admin/bids.xhtml?faces-redirect=true&auctionId=" + this.auctionId;
 
     }
 
     public String declineBid() {
 
-        // Get the param send from new-offer.xhtml page
+        // Get the param send from create-bid.xhtml page
         FacesContext fc = FacesContext.getCurrentInstance();
         Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
 
-        this.orderId = Integer.parseInt(params.get("orderId"));
-        this.order = this.orderDao.findOrderById(this.orderId);
+        this.auctionId = Integer.parseInt(params.get("auctionId"));
+        this.auction = this.auctionDao.findAuctionById(this.auctionId);
         String bidId = params.get("bidId");
 
         if (bidId != null) {
@@ -178,7 +179,7 @@ public class BidService {
             }
         }
 
-        return "/admin/offers.xhtml?faces-redirect=true&orderId=" + this.orderId;
+        return "/admin/bids.xhtml?faces-redirect=true&auctionId=" + this.auctionId;
 
     }
 
@@ -198,7 +199,7 @@ public class BidService {
             e.printStackTrace();
         }
 
-        return "/vendor/profile.xhtml?faces-redirect=true";
+        return "/vendor/user.xhtml?faces-redirect=true";
     }
 
     public Bid getBid() {
@@ -209,12 +210,12 @@ public class BidService {
         this.bid = bid;
     }
 
-    public PoOrder getOrder() {
-        return order;
+    public Auction getAuction() {
+        return auction;
     }
 
-    public void setOrder(PoOrder order) {
-        this.order = order;
+    public void setAuction(Auction auction) {
+        this.auction = auction;
     }
 
     public UIComponent getComponent() {
@@ -233,12 +234,12 @@ public class BidService {
         this.bids = bids;
     }
 
-    public int getOrderId() {
-        return orderId;
+    public int getAuctionId() {
+        return auctionId;
     }
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
+    public void setAuctionId(int auctionId) {
+        this.auctionId = auctionId;
     }
 
     public List<Bid> getUserBids() {

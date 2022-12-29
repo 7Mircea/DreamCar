@@ -20,7 +20,7 @@
             </h:link>
             <div class="navbar-nav ml-auto">
                 <h:link class="nav-item nav-link" target="_self" value="Home" outcome="/admin/home?faces-redirect=true"/>
-                <h:link class="nav-item nav-link" target="_self" value="New Order" outcome="/admin/new-order?faces-redirect=true"/>
+                <h:link class="nav-item nav-link" target="_self" value="New Order" outcome="/admin/new-auction?faces-redirect=true"/>
                 <h:link class="nav-item nav-link" target="_self" value="Vendors" outcome="/admin/vendor?faces-redirect=true"/>
                 <h:form>
                     <h:commandLink class="nav-item nav-link" value="Logout" action="#{auth.logout}"/>
@@ -48,8 +48,8 @@
         </f:view>
         <div class="row mx-0">
             <div class="col-md-12 mt-4 mx-0 p-0">
-                <h3>All orders</h3>
-                <h:dataTable value="#{order.orders}" var="orderv" class="table mt-3">
+                <h3>All auctions</h3>
+                <h:dataTable value="#{auction.auctions}" var="orderv" class="table mt-3">
                     <h:column>
                         <f:facet name="header">PO Number</f:facet>
                             #{orderv.poNumber}
@@ -81,17 +81,17 @@
                     </h:column>
                     <h:column>
                         <h:form>
-                            <h:commandLink value="Close" action="#{order.closeOrder(orderv.orderId)}" />
+                            <h:commandLink value="Close" action="#{auction.closeOrder(orderv.orderId)}" />
                         </h:form>
                     </h:column>
                     <h:column>
                         <h:form>
-                            <h:commandLink value="Open" action="#{order.openOrder(orderv.orderId)}" />
+                            <h:commandLink value="Open" action="#{auction.openOrder(orderv.orderId)}" />
                         </h:form>
                     </h:column>
                     <h:column>
                         <h:form>
-                            <h:commandLink value="Delete" action="#{order.deleteOrder(orderv.orderId)}" />
+                            <h:commandLink value="Delete" action="#{auction.deleteOrder(orderv.orderId)}" />
                         </h:form>
                     </h:column>
                 </h:dataTable>

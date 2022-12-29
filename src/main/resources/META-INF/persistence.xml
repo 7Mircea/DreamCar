@@ -4,7 +4,7 @@
     <jta-data-source>java:app/conexiune2</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+      <property name="javax.persistence.schema-generation.database.action" value="none"/>
       <!-- Allowed values for javax.persistence.schema-generation.database.action are
 
     none (that doesn't serve anything...)

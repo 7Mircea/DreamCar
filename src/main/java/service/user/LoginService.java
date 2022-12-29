@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package service;
+package service.user;
 
-import dao.UserDao;
+import data.dao.UserDao;
 import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.ConfigurableNavigationHandler;
@@ -16,15 +16,15 @@ import javax.faces.event.PhaseId;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
-import model.User;
+import data.model.User;
 
 /**
  *
- * @author pmadalin
+ * @author Gheoace Mircea
  */
-@Named(value = "auth")
+@Named(value = "login")
 @SessionScoped
-public class AuthService implements Serializable {
+public class LoginService implements Serializable {
 
     private String username;
     private String password;
@@ -46,10 +46,10 @@ public class AuthService implements Serializable {
             // If the user is not null, check the role
             if (this.user.getRole().equals("vendor")) {
                 session.setAttribute("user", "vendor");
-                return "/vendor/home.xhtml?faces-redirect=true";
+                return "/vendor/auctions.xhtml?faces-redirect=true";
             } else if (this.user.getRole().equals("admin")) {
                 session.setAttribute("user", "admin");
-                return "/admin/home.xhtml?faces-redirect=true";
+                return "/admin/auctions.xhtml?faces-redirect=true";
             }
         }
 
