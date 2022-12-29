@@ -29,7 +29,7 @@ import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 import data.model.Bid;
 import data.model.Auction;
-import data.model.User;
+import data.model.Users;
 import service.user.LoginService;
 
 /**
@@ -46,7 +46,7 @@ public class BidService {
     private Auction auction;
     private List<Bid> bids;
     private List<Bid> userBids;
-    private User user;
+    private Users users;
 
     @Inject
     private UserDao userDao;
@@ -66,8 +66,8 @@ public class BidService {
     @PostConstruct
     public void init() {
         this.bid = new Bid();
-        User dbUser = this.userDao.getUserById(this.auth.getUser().getId());
-        this.userBids = dbUser.getBidList();
+        Users dbUsers = this.userDao.getUserById(this.auth.getUser().getId());
+        this.userBids = dbUsers.getBidList();
     }
 
     public void addBid() {
@@ -191,8 +191,8 @@ public class BidService {
             this.bidDao.deleteBid(id);
             this.utx.commit();
 
-            User dbUser = this.userDao.getUserById(this.auth.getUser().getId());
-            this.userBids = dbUser.getBidList();
+            Users dbUsers = this.userDao.getUserById(this.auth.getUser().getId());
+            this.userBids = dbUsers.getBidList();
             this.bidDao.getEm().getEntityManagerFactory().getCache().evictAll();
 
         } catch (Exception e) {

@@ -37,7 +37,7 @@
                 <h:dataTable class="table mt-3" value="#{user.vendors}" var="vendor">
                     <h:column>
                         <f:facet name="header">User ID</f:facet>
-                            #{vendor.userId}
+                            #{vendor.id}
                     </h:column>
                     <h:column>
                         <f:facet name="header">Username</f:facet>
@@ -45,23 +45,23 @@
                     </h:column>
                    <h:column>
                         <f:facet name="header">First name</f:facet>
-                            #{vendor.profile.firstName}
+                            #{vendor.firstName}
                     </h:column>
                     <h:column>
                         <f:facet name="header">Last name</f:facet>
-                            #{vendor.profile.lastName}
+                            #{vendor.lastName}
                     </h:column>
                     <h:column>
                         <f:facet name="header">Phone</f:facet>
-                            #{vendor.profile.phone}
+                            #{vendor.phone}
                     </h:column>
                      <h:column>
                         <f:facet name="header">E-mail</f:facet>
-                            #{vendor.profile.email}
+                            #{vendor.email}
                     </h:column>
                      <h:column>
                         <f:facet name="header">Company</f:facet>
-                            #{vendor.profile.company.compName}
+                            #{vendor.company.name}
                     </h:column>
                 </h:dataTable>
             </div> 

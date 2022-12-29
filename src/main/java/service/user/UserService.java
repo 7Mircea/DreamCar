@@ -8,7 +8,7 @@ package service.user;
 import data.dao.CompanyDao;
 import data.dao.UserDao;
 import data.model.Company;
-import data.model.User;
+import data.model.Users;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -29,9 +29,9 @@ import java.util.List;
 @RequestScoped
 public class UserService {
 
-    private User user;
+    private Users users;
     private Company company;
-    private List<User> vendors;
+    private List<Users> vendors;
 
     @Inject
     private UserDao userDao;
@@ -47,7 +47,7 @@ public class UserService {
 
     @PostConstruct
     public void init() {
-        this.user = new User();
+        this.users = new Users();
         this.company = new Company();
         this.vendors = this.userDao.getAllVendors("vendor");
     }
@@ -58,15 +58,15 @@ public class UserService {
         try {
             this.utx.begin();
             // First, add the user
-            this.user.setRole("vendor");
-            User user = this.userDao.addUser(this.user);
+            this.users.setRole("vendor");
+            Users users = this.userDao.addUser(this.users);
 
             // Second, add the company
             Company comp = this.companyDao.addCompany(this.company);
 
             // Third, add the user profile 
-            this.user.setCompany(comp);
-            this.user.setId(user.getId());
+            this.users.setCompany(comp);
+            this.users.setId(users.getId());
 //            this.userDao.addProfile(this.profile);
 
             this.utx.commit();
@@ -86,14 +86,14 @@ public class UserService {
 
     public void updateUserProfile() {
 
-        User updated_user = this.authServ.getUser();
-        Company updated_user_company = updated_user.getCompany();
+        Users updated_users = this.authServ.getUser();
+        Company updated_user_company = updated_users.getCompany();
 
         try {
             this.utx.begin();
-            this.userDao.getEm().merge(updated_user);
+            this.userDao.getEm().merge(updated_users);
             this.userDao.getEm().flush();
-            this.userDao.getEm().merge(updated_user);
+            this.userDao.getEm().merge(updated_users);
             this.userDao.getEm().flush();
             this.companyDao.getEm().merge(updated_user_company);
             this.companyDao.getEm().flush();
@@ -109,12 +109,12 @@ public class UserService {
         }
     }
 
-    public User getUser() {
-        return user;
+    public Users getUser() {
+        return users;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(Users users) {
+        this.users = users;
     }
 
     public Company getCompany() {
@@ -125,11 +125,11 @@ public class UserService {
         this.company = company;
     }
 
-    public List<User> getVendors() {
+    public List<Users> getVendors() {
         return vendors;
     }
 
-    public void setVendors(List<User> vendors) {
+    public void setVendors(List<Users> vendors) {
         this.vendors = vendors;
     }
 

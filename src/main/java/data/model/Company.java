@@ -55,8 +55,8 @@ public class Company implements Serializable {
     @Size(max = 30)
     @Column(name = "city")
     private String city;
-    @OneToMany(targetEntity = User.class, cascade = CascadeType.ALL, mappedBy = "company", fetch = FetchType.EAGER)
-    private List<User> userList;
+    @OneToMany(targetEntity = Users.class, cascade = CascadeType.ALL, mappedBy = "company", fetch = FetchType.EAGER)
+    private List<Users> usersList;
 
     public Company() {
     }
@@ -103,12 +103,12 @@ public class Company implements Serializable {
     }
 
     @XmlTransient
-    public List<User> getUserList() {
-        return userList;
+    public List<Users> getUserList() {
+        return usersList;
     }
 
-    public void setUserList(List<User> userList) {
-        this.userList = userList;
+    public void setUserList(List<Users> usersList) {
+        this.usersList = usersList;
     }
 
     @Override

@@ -16,15 +16,15 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Gheoace Mircea
  */
 @Entity
-@Table(name = "USER")
+@Table(name = "USERS")
 @XmlRootElement
 @NamedQueries({
-        @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
-        , @NamedQuery(name = "User.findById", query = "SELECT u FROM User u WHERE u.id = :id")
-        , @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username")
-        , @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")
-        , @NamedQuery(name = "User.findByRole", query = "SELECT u FROM User u WHERE u.role = :role")})
-public class User implements Serializable {
+        @NamedQuery(name = "User.findAll", query = "SELECT u FROM Users u")
+        , @NamedQuery(name = "User.findById", query = "SELECT u FROM Users u WHERE u.id = :id")
+        , @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM Users u WHERE u.username = :username")
+        , @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password")
+        , @NamedQuery(name = "User.findByRole", query = "SELECT u FROM Users u WHERE u.role = :role")})
+public class Users implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -34,18 +34,18 @@ public class User implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
-    @Column(name = "USERNAME")
+    @Column(name = "username")
     private String username;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
-    @Column(name = "PASSWORD")
+    @Column(name = "password")
     private String password;
     @Size(max = 10)
-    @Column(name = "ROLE")
+    @Column(name = "role")
     private String role;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "users", fetch = FetchType.EAGER)
     private List<Bid> bidList;
 
     @Size(max = 30)
@@ -55,6 +55,22 @@ public class User implements Serializable {
     @Size(max = 30)
     @Column(name = "phone")
     private String phone;
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
     @Size(max = 30)
     @Column(name = "first_name")
@@ -68,14 +84,14 @@ public class User implements Serializable {
     @ManyToOne(targetEntity = Company.class,optional = false, fetch = FetchType.EAGER)
     private Company company;
 
-    public User() {
+    public Users() {
     }
 
-    public User(Integer id) {
+    public Users(Integer id) {
         this.id = id;
     }
 
-    public User(Integer id, String username, String password) {
+    public Users(Integer id, String username, String password) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -148,10 +164,10 @@ public class User implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof User)) {
+        if (!(object instanceof Users)) {
             return false;
         }
-        User other = (User) object;
+        Users other = (Users) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

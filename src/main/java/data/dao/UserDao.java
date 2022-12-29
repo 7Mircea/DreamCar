@@ -13,7 +13,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import data.model.User;
+import data.model.Users;
 
 /**
  *
@@ -26,16 +26,16 @@ public class UserDao {
     @PersistenceContext
     private EntityManager em;
 
-    public User addUser(User u) {
+    public Users addUser(Users u) {
         this.em.persist(u);
         this.em.flush();
         return u;
     }
 
-    public User getUser(String username, String password) {
+    public Users getUser(String username, String password) {
 
         // Set the query
-        String query = "SELECT u from User u where u.username = :user and u.password = :pass";
+        String query = "SELECT u from Users u where u.username = :user and u.password = :pass";
 
         // Interogate the database
         try {
@@ -44,10 +44,10 @@ public class UserDao {
             q.setParameter("user", username);
             q.setParameter("pass", password);
 
-            User user = (User) q.getSingleResult();
+            Users users = (Users) q.getSingleResult();
 
             // Return the user
-            return user;
+            return users;
 
         } catch (NoResultException e) {
 
@@ -56,18 +56,18 @@ public class UserDao {
         }
     }
     
-    public List<User> getAllVendors(String role){
+    public List<Users> getAllVendors(String role){
         Query query = this.em.createNamedQuery("User.findByRole");
         query.setParameter("role", role);
-        List<User> vendors = query.getResultList();
+        List<Users> vendors = query.getResultList();
         return vendors;
     }
     
-    public User getUserById(int id){
+    public Users getUserById(int id){
         Query query = this.em.createNamedQuery("User.findByUserId");
         query.setParameter("userId", id);
-        User user = (User) query.getSingleResult();
-        return user;
+        Users users = (Users) query.getSingleResult();
+        return users;
     }
 
     public EntityManager getEm() {

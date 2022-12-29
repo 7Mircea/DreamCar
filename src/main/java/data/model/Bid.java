@@ -59,8 +59,8 @@ public class Bid implements Serializable {
     private Auction auction;
 
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @ManyToOne(targetEntity = User.class,optional = false, fetch = FetchType.EAGER)
-    private User user;
+    @ManyToOne(targetEntity = Users.class,optional = false, fetch = FetchType.EAGER)
+    private Users users;
 
     public Bid() {
     }
@@ -123,12 +123,12 @@ public class Bid implements Serializable {
         return "model.Bid[ bidId=" + id + " ]";
     }
 
-    public User getUser() {
-        return user;
+    public Users getUser() {
+        return users;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(Users users) {
+        this.users = users;
     }
 
     public Boolean getStatus() {

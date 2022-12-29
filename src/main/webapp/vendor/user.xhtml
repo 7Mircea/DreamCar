@@ -40,19 +40,19 @@
                         <div class="media">
                             <h:graphicImage class="img-fluid mr-3" width="100" height="100" value="/resource/img/vendor.png" />
                             <div class="media-body">
-                                <strong>First Name: </strong><span> <h:outputText value="#{login.user.profile.firstName}" /> </span>
+                                <strong>First Name: </strong><span> <h:outputText value="#{login.user.firstName}" /> </span>
                                 <br/>
-                                <strong>Last Name: </strong><span> <h:outputText value="#{login.user.profile.lastName}" /> </span>
+                                <strong>Last Name: </strong><span> <h:outputText value="#{login.user.lastName}" /> </span>
                                 <br/>
                                 <br />
-                                <strong>Phone: </strong><span> <h:outputText value="#{login.user.profile.phone}" /> </span>
+                                <strong>Phone: </strong><span> <h:outputText value="#{login.user.phone}" /> </span>
                                 <br />
-                                <strong>E-mail: </strong><span> <h:outputText value="#{login.user.profile.email}" /> </span>
+                                <strong>E-mail: </strong><span> <h:outputText value="#{login.user.email}" /> </span>
                                 <br />
                                 <br />
-                                <strong>Company: </strong><span> <h:outputText value="#{login.user.profile.company.compName}" /> </span>
+                                <strong>Company: </strong><span> <h:outputText value="#{login.user.company.name}" /> </span>
                                 <br />
-                                <strong>Country: </strong><span> <h:outputText value="#{login.user.profile.company.country}" /> </span>
+                                <strong>Country: </strong><span> <h:outputText value="#{login.user.company.country}" /> </span>
                                 <br />
                                 <h:form>
                                     <h:commandButton class="btn btn-block btn-light mt-3" value="Update" action="/vendor/update-profile.xhtml?faces-redirect=true" />
@@ -71,10 +71,10 @@
                                         <f:facet name="header">Price</f:facet>
                                             #{bidv.price}
                                     </h:column>
-                                    <h:column>
-                                        <f:facet name="header">Order Number</f:facet>
-                                            #{bidv.poNumber.poNumber}
-                                    </h:column>
+<!--                                    <h:column>-->
+<!--                                        <f:facet name="header">Order Number</f:facet>-->
+<!--                                            #{bidv.poNumber.poNumber}-->
+<!--                                    </h:column>-->
                                     <h:column>
                                         <f:facet name="header">Accepted</f:facet>
                                             #{bidv.status}

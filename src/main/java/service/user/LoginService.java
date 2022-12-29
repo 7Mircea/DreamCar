@@ -16,7 +16,7 @@ import javax.faces.event.PhaseId;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
-import data.model.User;
+import data.model.Users;
 
 /**
  *
@@ -28,7 +28,7 @@ public class LoginService implements Serializable {
 
     private String username;
     private String password;
-    private User user;
+    private Users users;
 
     @Inject
     UserDao userDao;
@@ -36,18 +36,18 @@ public class LoginService implements Serializable {
     public String login() {
 
         // Get the user
-        this.user = userDao.getUser(this.username, this.password);
+        this.users = userDao.getUser(this.username, this.password);
 
         // Check if the result is null
-        if (this.user != null) {
+        if (this.users != null) {
 
             HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 
             // If the user is not null, check the role
-            if (this.user.getRole().equals("vendor")) {
+            if (this.users.getRole().equals("vendor")) {
                 session.setAttribute("user", "vendor");
                 return "/vendor/auctions.xhtml?faces-redirect=true";
-            } else if (this.user.getRole().equals("admin")) {
+            } else if (this.users.getRole().equals("admin")) {
                 session.setAttribute("user", "admin");
                 return "/admin/auctions.xhtml?faces-redirect=true";
             }
@@ -125,12 +125,12 @@ public class LoginService implements Serializable {
         this.password = password;
     }
 
-    public User getUser() {
-        return user;
+    public Users getUser() {
+        return users;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(Users users) {
+        this.users = users;
     }
 
 }
