@@ -1,11 +1,3 @@
-/*
-*
-* ==========================================
-* CUSTOM UTIL CLASSES
-* ==========================================
-*
-*/
-
 .vertical-nav {
     min-width: 17rem;
     width: 17rem;
@@ -60,9 +52,9 @@
   */
   
   body {
-    background: #599fd9;
-    background: -webkit-linear-gradient(to right, #599fd9, #c2e59c);
-    background: linear-gradient(to right, #599fd9, #c2e59c);
+    background: #598fd9;
+    background: -webkit-linear-gradient(to right, #598fd9, #c6f59c);
+    background: linear-gradient(to right, #598fd9, #c6f59c);
     min-height: 100vh;
     overflow-x: hidden;
   }

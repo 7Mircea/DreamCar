@@ -17,7 +17,7 @@
         <property name="serverName" value="localhost"/>
         <property name="portNumber" value="1527"/>
         <property name="databaseName" value="dreamcar"/>
-        <property name="User" value="student"/>
+        <property name="User" value="student2"/>
         <property name="Password" value="test"/>
         <property name="URL" value="jdbc:derby://localhost:1527/dreamcar"/>
         <property name="driverClass" value="org.apache.derby.jdbc.ClientDriver"/>

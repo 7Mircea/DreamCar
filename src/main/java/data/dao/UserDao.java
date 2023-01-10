@@ -8,10 +8,7 @@ package data.dao;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.*;
 
 import data.model.Users;
 
@@ -44,10 +41,8 @@ public class UserDao {
             q.setParameter("user", username);
             q.setParameter("pass", password);
 
-            Users users = (Users) q.getSingleResult();
-
             // Return the user
-            return users;
+            return (Users) q.getSingleResult();
 
         } catch (NoResultException e) {
 
@@ -57,15 +52,13 @@ public class UserDao {
     }
     
     public List<Users> getAllVendors(String role){
-        Query query = this.em.createNamedQuery("User.findByRole");
-        query.setParameter("role", role);
-        List<Users> vendors = query.getResultList();
-        return vendors;
+        List<Users> query = this.em.createNamedQuery("User.findByRole", Users.class).setParameter("role", role).getResultList();
+        return query;
     }
     
     public Users getUserById(int id){
-        Query query = this.em.createNamedQuery("User.findByUserId");
-        query.setParameter("userId", id);
+        Query query = this.em.createNamedQuery("User.findById");
+        query.setParameter("id", id);
         Users users = (Users) query.getSingleResult();
         return users;
     }
