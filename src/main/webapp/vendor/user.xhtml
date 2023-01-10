@@ -3,10 +3,10 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+>
 
     <f:metadata>
-        <f:event listener="#{login.isVendor}" type="preRenderView" />
+        <f:event listener="#{login.isVendor}" type="preRenderView"/>
     </f:metadata>
 
     <!-- TITLE -->
@@ -14,17 +14,28 @@
 
     <!-- NAV BAR -->
     <ui:define name="navbar">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light mt-4">
-            <h:link class="navbar-brand" outcome="/vendor/auctions?faces-redirect=true">
-                <h:graphicImage class="img-fluid" width="100" height="100" value="/resource/img/logo1.jpg" />
-            </h:link>
-            <div class="navbar-nav ml-auto">
-                <h:link class="nav-item nav-link" target="_self" value="Home" outcome="/vendor/auctions?faces-redirect=true"/>
-                <h:link class="nav-item nav-link" target="_self" value="Profile" outcome="/vendor/user?faces-redirect=true"/>
-                <h:form>
-                    <h:commandLink class="nav-item nav-link" value="Logout" action="#{login.logout}"/>
-                </h:form>
+        <nav class="vertical-nav bg-white">
+            <div class="py-4 px-5 mb-4 bg-light">
+                <h:link class="navbar-brand" outcome="/vendor/auctions?faces-redirect=true">
+                    <h:graphicImage class="img-fluid" width="100" height="100" value="/resource/img/logo1.jpg"/>
+                </h:link>
             </div>
+                <ul class="nav flex-column bg-white mb-0">
+                    <li>
+                        <h:link class="nav-link text-dark font-italic" target="_self" value="Home"
+                                outcome="/vendor/auctions?faces-redirect=true"/>
+                    </li>
+                    <li>
+                        <h:link class="nav-link text-dark font-italic" target="_self" value="Profile"
+                                outcome="/vendor/user?faces-redirect=true"/>
+                    </li>
+                    <li>
+                        <h:form>
+                            <h:commandLink class="nav-link text-dark font-italic" value="Logout"
+                                           action="#{login.logout}"/>
+                        </h:form>
+                    </li>
+                </ul>
         </nav>
     </ui:define>
 
@@ -38,46 +49,51 @@
                     </div>
                     <div class="card-body">
                         <div class="media">
-                            <h:graphicImage class="img-fluid mr-3" width="100" height="100" value="/resource/img/vendor.png" />
+                            <h:graphicImage class="img-fluid mr-3" width="100" height="100"
+                                            value="/resource/img/vendor.png"/>
                             <div class="media-body">
-                                <strong>First Name: </strong><span> <h:outputText value="#{login.user.firstName}" /> </span>
+                                <strong>First Name: </strong><span> <h:outputText
+                                    value="#{login.user.firstName}"/> </span>
                                 <br/>
-                                <strong>Last Name: </strong><span> <h:outputText value="#{login.user.lastName}" /> </span>
+                                <strong>Last Name: </strong><span> <h:outputText
+                                    value="#{login.user.lastName}"/> </span>
                                 <br/>
-                                <br />
-                                <strong>Phone: </strong><span> <h:outputText value="#{login.user.phone}" /> </span>
-                                <br />
-                                <strong>E-mail: </strong><span> <h:outputText value="#{login.user.email}" /> </span>
-                                <br />
-                                <br />
-                                <strong>Company: </strong><span> <h:outputText value="#{login.user.company.name}" /> </span>
-                                <br />
-                                <strong>Country: </strong><span> <h:outputText value="#{login.user.company.country}" /> </span>
-                                <br />
+                                <br/>
+                                <strong>Phone: </strong><span> <h:outputText value="#{login.user.phone}"/> </span>
+                                <br/>
+                                <strong>E-mail: </strong><span> <h:outputText value="#{login.user.email}"/> </span>
+                                <br/>
+                                <br/>
+                                <strong>Company: </strong><span> <h:outputText
+                                    value="#{login.user.company.name}"/> </span>
+                                <br/>
+                                <strong>Country: </strong><span> <h:outputText value="#{login.user.company.country}"/> </span>
+                                <br/>
                                 <h:form>
-                                    <h:commandButton class="btn btn-block btn-light mt-3" value="Update" action="/vendor/update-user.xhtml?faces-redirect=true" />
+                                    <h:commandButton class="btn btn-block btn-light mt-3" value="Update"
+                                                     action="/vendor/update-user.xhtml?faces-redirect=true"/>
                                 </h:form>
                                 <h5 class="mt-2">My Offers</h5>
                                 <h:dataTable class="table mt-3" value="#{bidService.userBids}" var="bidv">
                                     <h:column>
                                         <f:facet name="header">Offer ID</f:facet>
-                                            #{bidv.bidId}
+                                        #{bidv.bidId}
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">Creation Date</f:facet>
-                                            #{bidv.bidDate}
+                                        #{bidv.bidDate}
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">Price</f:facet>
-                                            #{bidv.price}
+                                        #{bidv.price}
                                     </h:column>
-<!--                                    <h:column>-->
-<!--                                        <f:facet name="header">Order Number</f:facet>-->
-<!--                                            #{bidv.poNumber.poNumber}-->
-<!--                                    </h:column>-->
+                                    <!--                                    <h:column>-->
+                                    <!--                                        <f:facet name="header">Order Number</f:facet>-->
+                                    <!--                                            #{bidv.poNumber.poNumber}-->
+                                    <!--                                    </h:column>-->
                                     <h:column>
                                         <f:facet name="header">Accepted</f:facet>
-                                            #{bidv.status}
+                                        #{bidv.status}
                                     </h:column>
                                     <h:column>
                                         <h:form>
@@ -89,7 +105,7 @@
                         </div>
                     </div>
                 </div>
-            </div> 
+            </div>
         </div>
     </ui:define>
 </ui:composition>
