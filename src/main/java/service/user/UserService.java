@@ -52,7 +52,7 @@ public class UserService {
         this.vendors = this.userDao.getAllVendors("vendor");
     }
 
-    public void register() {
+    public void signup() {
 
         // persist the user into database
         try {
