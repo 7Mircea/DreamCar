@@ -1,13 +1,14 @@
 package data.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "CHARACTERISTIC")
+@XmlRootElement
+@NamedQueries({@NamedQuery(name="Characteristic.findAll",query = "SELECT c from Characteristic c"),
+        @NamedQuery(name="Characteristic.findCharacteristicForProduct",query = "SELECT c from Characteristic c where c.productId = :productId")})
 public class Characteristic {
     @Id
     @Column(name = "product_id")

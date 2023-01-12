@@ -6,7 +6,12 @@
 package service.auction;
 
 import data.dao.AuctionDao;
-import java.util.List;
+import data.dao.CharacteristicDao;
+import data.dao.ProductDao;
+import data.model.Auction;
+import data.model.Characteristic;
+import data.model.Product;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.enterprise.context.RequestScoped;
@@ -16,21 +21,10 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
-import javax.transaction.HeuristicMixedException;
-import javax.transaction.HeuristicRollbackException;
-import javax.transaction.NotSupportedException;
-import javax.transaction.RollbackException;
-import javax.transaction.SystemException;
-import javax.transaction.UserTransaction;
-
-import data.dao.CharacteristicDao;
-import data.dao.ProductDao;
-import data.model.Auction;
-import data.model.Characteristic;
-import data.model.Product;
+import javax.transaction.*;
+import java.util.List;
 
 /**
- *
  * @author Gheoace Mircea
  */
 @Named(value = "auction")
@@ -42,12 +36,14 @@ public class AuctionService {
 
     private Product product;
 
+    private int productId;
+
     private List<Characteristic> characteristicList;
+
     private List<Auction> auctions;
 
     @Inject
     private AuctionDao auctionDao;
-
     @Inject
     private ProductDao productDao;
 
@@ -63,7 +59,28 @@ public class AuctionService {
         this.auctions = this.auctionDao.getAllAuctions();
     }
 
+    public Product getProduct() {
+        return product;
+    }
+
+//    public void setProduct(Product product) {
+//        this.product = product;
+//    }
+
+    public void setProduct() {
+        if (productId > 0)
+            this.product = productDao.getProductById(productId);
+    }
+
     public void addAuction() {
+        System.out.println("we are in addAuction()");
+        System.out.println("utx is null" + (utx == null));
+        System.out.println("auction is null " + (auction == null));
+        System.out.println("characteristicDao is null " + (characteristicDao == null));
+        System.out.println("characteristicList is null " + (characteristicList == null));
+        System.out.println("product is null " + (product == null));
+        System.out.println("productDao is null " + (productDao == null));
+        System.out.println("auctionDao is null " + (auctionDao == null));
         try {
             utx.begin();
             this.auction.setStatus(Boolean.TRUE);
@@ -82,6 +99,7 @@ public class AuctionService {
             nav.performNavigation("/admin/auctions.xhtml?faces-redirect=true");
 
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             throw new RuntimeException("Something wrong happen with addAuction() transaction");
         }
 
@@ -109,7 +127,8 @@ public class AuctionService {
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) context.getApplication().getNavigationHandler();
             nav.performNavigation("/admin/auctions.xhtml?faces-redirect=true");
 
-        } catch (IllegalStateException | SecurityException | HeuristicMixedException | HeuristicRollbackException | NotSupportedException | RollbackException | SystemException e) {
+        } catch (IllegalStateException | SecurityException | HeuristicMixedException | HeuristicRollbackException |
+                 NotSupportedException | RollbackException | SystemException e) {
             e.printStackTrace();
         }
     }
@@ -136,7 +155,8 @@ public class AuctionService {
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) context.getApplication().getNavigationHandler();
             nav.performNavigation("/admin/auctions.xhtml?faces-redirect=true");
 
-        } catch (IllegalStateException | SecurityException | HeuristicMixedException | HeuristicRollbackException | NotSupportedException | RollbackException | SystemException e) {
+        } catch (IllegalStateException | SecurityException | HeuristicMixedException | HeuristicRollbackException |
+                 NotSupportedException | RollbackException | SystemException e) {
             e.printStackTrace();
         }
     }
@@ -148,7 +168,8 @@ public class AuctionService {
             utx.begin();
             this.auctionDao.deleteAuction(id);
             utx.commit();
-        } catch (IllegalStateException | SecurityException | HeuristicMixedException | HeuristicRollbackException | NotSupportedException | RollbackException | SystemException e) {
+        } catch (IllegalStateException | SecurityException | HeuristicMixedException | HeuristicRollbackException |
+                 NotSupportedException | RollbackException | SystemException e) {
             e.printStackTrace();
         }
 
@@ -193,4 +214,11 @@ public class AuctionService {
         this.component = component;
     }
 
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
 }

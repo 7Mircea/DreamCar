@@ -85,7 +85,7 @@ public class Auction implements Serializable {
         this.postDate = postDate;
     }
 
-    public Product getProductId() {
+    public Product getProduct() {
         return product;
     }
 

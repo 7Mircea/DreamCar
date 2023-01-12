@@ -1,6 +1,7 @@
 package data.dao;
 
 import data.model.Characteristic;
+import data.model.Users;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
@@ -16,8 +17,7 @@ public class CharacteristicDao {
     private EntityManager em;
 
     public List<Characteristic> getCharacteristicsForProduct(int productId) {
-        //TODO implement function
-        return Collections.emptyList();
+        return this.em.createNamedQuery("Characteristic.findCharacteristicForProduct", Characteristic.class).setParameter("productId",productId).getResultList();
     }
 
     public void setCharacteristicsForProduct(List<Characteristic> characteristic) {
