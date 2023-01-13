@@ -18,22 +18,22 @@
                     <div class="card-body text-left">
                         <h:form>
                             <div class="form-group">
-                                <h:inputText class="form-control" value="#{user.user.firstName}" a:placeholder="First Name" id="firstname"/>
+                                <h:inputText class="form-control" value="#{user.user.firstName}" a:placeholder="First Name" id="firstname" required="true" requiredMessage="First name is required"/>
                             </div>
                             <div class="form-group">
-                                <h:inputText class="form-control" value="#{user.user.lastName}" a:placeholder="Last Name" id="lastname"/>
+                                <h:inputText class="form-control" value="#{user.user.lastName}" a:placeholder="Last Name" id="lastname" required="true" requiredMessage="Last name is required"/>
                             </div>
                             <div class="form-group">
-                                <h:inputText class="form-control" value="#{user.company.name}" a:placeholder="Company" id="company"/>
+                                <h:inputText class="form-control" value="#{user.company.name}" a:placeholder="Company" id="company" required="true" requiredMessage="Company is required"/>
                             </div>
                             <div class="form-group">
-                                <h:inputText class="form-control" value="#{user.user.email}" a:placeholder="E-mail" id="email"/>
+                                <h:inputText class="form-control" value="#{user.user.email}" a:placeholder="E-mail" id="email" required="true" requiredMessage="E-mail is required"/>
                             </div>
                             <div class="form-group">
-                                <h:inputText class="form-control" value="#{user.user.username}" a:placeholder="Username" id="username"/>
+                                <h:inputText class="form-control" value="#{user.user.username}" a:placeholder="Username" id="username" required="true" requiredMessage="Username is required"/>
                             </div>
                             <div class="form-group">
-                                <h:inputSecret class="form-control" value="#{user.user.password}" a:placeholder="Password" id="password"/>
+                                <h:inputSecret class="form-control" value="#{user.user.password}" a:placeholder="Password" id="password" required="true" requiredMessage="Password can't be empty"/>
                             </div>
                             <div class="text-center">
                                 <h:commandButton class="btn btn-light mr-3" value="Sign up" action="#{user.signup}"/>

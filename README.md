@@ -3,14 +3,16 @@
 ## Dreamcar
 
 
-1. JSF - Java Server Faces
-2. CDI - Java Enterprise Contexts and Dependency Injection
-3. JPA - Java Persistence API
-4. Derby - Database
-5. Glasfish 5.0.1 - Application Server
+1. Java Enterprise Edition 8
+2. JSF - Java Server Faces
+3. CDI - Java Enterprise Contexts and Dependency Injection
+4. JPA - Java Persistence API
+5. Derby - Database
+6. Glasfish 5.0.1 - Application Server
 
 ## What application does?
 
+Creates an inverse auction for car parts.
 
 ## Screenshots
 

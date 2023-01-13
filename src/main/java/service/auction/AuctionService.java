@@ -68,14 +68,20 @@ public class AuctionService {
 //    }
 
     public void setProduct() {
-        if (productId > 0)
+        System.out.println("product id is : " + productId);
+        if (productId > 0) {
             this.product = productDao.getProductById(productId);
+            System.out.println("product is " + product);
+        }
     }
 
     public void addAuction() {
         System.out.println("we are in addAuction()");
         System.out.println("utx is null" + (utx == null));
         System.out.println("auction is null " + (auction == null));
+        if(auction != null) {
+            System.out.println(auction);
+        }
         System.out.println("characteristicDao is null " + (characteristicDao == null));
         System.out.println("characteristicList is null " + (characteristicList == null));
         System.out.println("product is null " + (product == null));
