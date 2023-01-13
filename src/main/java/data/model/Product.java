@@ -8,7 +8,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "PRODUCT")
 @XmlRootElement
 @NamedQueries({@NamedQuery(name = "Product.findAll", query = "SELECT p from Product p"),
-        @NamedQuery(name = "Product.findById", query = "SELECT p FROM Product p where p.id=:productId")})
+        @NamedQuery(name = "Product.findById", query = "SELECT p FROM Product p where p.id=:productId"),
+@NamedQuery(name = "Product.findAllProductIds",query = "SELECT p.id FROM Product p")})
 public class Product {
     @Id
     @Column

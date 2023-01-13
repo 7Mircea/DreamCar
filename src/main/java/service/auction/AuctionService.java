@@ -41,6 +41,7 @@ public class AuctionService {
     private List<Characteristic> characteristicList;
 
     private List<Auction> auctions;
+    private List<Integer> productIds;
 
     @Inject
     private AuctionDao auctionDao;
@@ -57,6 +58,11 @@ public class AuctionService {
     public void init() {
         this.auction = new Auction();
         this.auctions = this.auctionDao.getAllAuctions();
+        this.productIds = productDao.getAllProductIds();
+    }
+
+    public List<Integer> getProductIds() {
+        return this.productIds;
     }
 
     public Product getProduct() {
@@ -76,6 +82,7 @@ public class AuctionService {
     }
 
     public void addAuction() {
+        product = productDao.getProductById(productId);
         System.out.println("we are in addAuction()");
         System.out.println("utx is null" + (utx == null));
         System.out.println("auction is null " + (auction == null));
@@ -91,7 +98,7 @@ public class AuctionService {
             utx.begin();
             this.auction.setStatus(Boolean.TRUE);
             this.characteristicDao.setCharacteristicsForProduct(characteristicList);
-            this.auction.setProduct(product);
+            this.auction.setProduct(productDao.getProductById(productId));
             this.productDao.addProduct(product);
             this.auctionDao.addAuction(this.auction);
             utx.commit();

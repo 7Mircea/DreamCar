@@ -30,4 +30,8 @@ public class ProductDao {
         //TODO here it might return null although there is a product by this id
         return this.em.createNamedQuery("Product.findById", Product.class).setParameter("productId", productId).getSingleResult();
     }
+
+    public List<Integer> getAllProductIds() {
+        return this.em.createNamedQuery("Product.findAllProductIds",Integer.class).getResultList();
+    }
 }
