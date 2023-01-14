@@ -14,21 +14,11 @@ public class Product {
     @Id
     @Column
     Integer id;
-    @Size(max = 45)
+    @Size(min = 2,max = 45)
     @Column
     String name;
-    @Transient
-    boolean selected;
     @OneToOne(targetEntity = Auction.class, mappedBy = "product")
     private Auction auction;
-
-    public boolean isSelected() {
-        return selected;
-    }
-
-    public void setSelected(boolean selected) {
-        this.selected = selected;
-    }
 
     public Integer getId() {
         return id;
@@ -48,11 +38,6 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", selected=" + selected +
-                ", auction=" + auction +
-                '}';
+        return name;
     }
 }

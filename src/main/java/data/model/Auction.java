@@ -44,7 +44,6 @@ public class Auction implements Serializable {
     @Column(name = "due_date")
     private String dueDate;
 
-    @Size(max = 50)
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id")
     private Product product;

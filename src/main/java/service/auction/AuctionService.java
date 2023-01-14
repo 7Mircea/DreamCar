@@ -38,7 +38,6 @@ public class AuctionService {
 
     private int productId;
 
-    private List<Characteristic> characteristicList;
 
     private List<Auction> auctions;
     private List<Integer> productIds;
@@ -48,8 +47,6 @@ public class AuctionService {
     @Inject
     private ProductDao productDao;
 
-    @Inject
-    private CharacteristicDao characteristicDao;
 
     @Resource
     private UserTransaction utx;
@@ -89,15 +86,12 @@ public class AuctionService {
         if(auction != null) {
             System.out.println(auction);
         }
-        System.out.println("characteristicDao is null " + (characteristicDao == null));
-        System.out.println("characteristicList is null " + (characteristicList == null));
         System.out.println("product is null " + (product == null));
         System.out.println("productDao is null " + (productDao == null));
         System.out.println("auctionDao is null " + (auctionDao == null));
         try {
             utx.begin();
             this.auction.setStatus(Boolean.TRUE);
-            this.characteristicDao.setCharacteristicsForProduct(characteristicList);
             this.auction.setProduct(productDao.getProductById(productId));
             this.productDao.addProduct(product);
             this.auctionDao.addAuction(this.auction);
