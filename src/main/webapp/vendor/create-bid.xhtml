@@ -7,6 +7,7 @@
 
     <f:metadata>
         <f:event listener="#{login.isVendor}" type="preRenderView"/>
+
     </f:metadata>
 
     <!-- TITLE -->
@@ -17,7 +18,7 @@
         <nav class="vertical-nav bg-white">
             <div class="py-4 px-5 mb-4 bg-light">
                 <h:link class="navbar-brand" outcome="/vendor/auctions?faces-redirect=true">
-                    <h:graphicImage class="img-fluid" width="100" height="100" value="/resource/img/logo1.png"/>
+                    <h:graphicImage class="img-fluid" width="100" height="100" value="/resource/img/logo1.jpg"/>
                 </h:link>
             </div>
                 <ul class="nav flex-column bg-white mb-0">
@@ -44,13 +45,13 @@
     <ui:define name="content">
         <div class="page-content p-1">
             <div class="col-md-12 mt-3 mx-0 p-0">
-                <h3>Add new Auction</h3>
+                <h3>Add new Bid</h3>
                 <h:form class="mt-2">
                     <div class="form-row">
                         <div class="col">
                             <div class="form-group">
-                                <h:outputLabel for="po-number" value="PO Number"/>
-                                <h:inputText id="po-number" class="form-control" value="#{param['orderId']}"
+                                <h:outputLabel for="auction-nr" value="Auction Number"/>
+                                <h:inputText id="auction-nr" class="form-control" value="#{param['auctionId']}"
                                              readonly="true"/>
                             </div>
                             <div class="form-group">
@@ -60,7 +61,7 @@
                             <div class="form-group">
                                 <h:commandButton value="Submit" class="btn btn-light btn-lg btn-block"
                                                  action="#{bidService.addBid}">
-                                    <f:param name="orderId" value="#{param['orderId']}"/>
+                                    <f:param name="auctionId" value="#{param['auctionId']}"/>
                                 </h:commandButton>
                             </div>
                         </div>

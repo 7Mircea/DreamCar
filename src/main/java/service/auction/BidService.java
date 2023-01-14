@@ -90,7 +90,7 @@ public class BidService {
                 // Create the offer
                 this.utx.begin();
                 this.bid.setUser(auth.getUser());
-//                this.bid.setPoNumber(auction);
+                this.bid.setAuction(auction);
                 this.bid.setBidDate(offerDate);
                 this.bid.setStatus(Boolean.FALSE);
                 this.bidDao.addBid(this.bid);

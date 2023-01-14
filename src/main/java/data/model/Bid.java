@@ -139,4 +139,11 @@ public class Bid implements Serializable {
         this.status = status;
     }
 
+    public Auction getAuction() {
+        return auction;
+    }
+
+    public void setAuction(Auction auction) {
+        this.auction = auction;
+    }
 }
