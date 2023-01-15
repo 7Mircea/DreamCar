@@ -5,22 +5,11 @@
  */
 package data.model;
 
-import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 /**
  * @author Gheoace Mircea
@@ -32,7 +21,8 @@ import javax.xml.bind.annotation.XmlRootElement;
         @NamedQuery(name = "Bid.findAll", query = "SELECT b FROM Bid b")
         , @NamedQuery(name = "Bid.findById", query = "SELECT b FROM Bid b WHERE b.id = :bidId")
         , @NamedQuery(name = "Bid.findByDate", query = "SELECT b FROM Bid b WHERE b.date = :bidDate")
-        , @NamedQuery(name = "Bid.findByPrice", query = "SELECT b FROM Bid b WHERE b.price = :price")})
+        , @NamedQuery(name = "Bid.findByPrice", query = "SELECT b FROM Bid b WHERE b.price = :price")
+        , @NamedQuery(name = "Bid.deleteBidByAuction", query = "DELETE FROM Bid b where b.auction.id=:auctionId")})
 public class Bid implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -59,7 +49,7 @@ public class Bid implements Serializable {
     private Auction auction;
 
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @ManyToOne(targetEntity = Users.class,optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = Users.class, optional = false, fetch = FetchType.EAGER)
     private Users users;
 
     public Bid() {

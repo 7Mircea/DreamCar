@@ -6,6 +6,7 @@
 package data.dao;
 
 import data.model.Auction;
+import data.model.Bid;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
@@ -32,10 +33,9 @@ public class AuctionDao {
     }
     
     public boolean deleteAuction(int id){
-        
-        Query query = this.em.createQuery("DELETE FROM Auction a WHERE a.id = :id");
-        query.setParameter("id", id);
-        int auctionNr = query.executeUpdate();
+        Integer deletedBids=this.em.createNamedQuery("Bid.deleteBidByAuction", Integer.class).setParameter("auctionId",id).executeUpdate();
+        System.out.println("deletedBids : " + deletedBids);
+        int auctionNr = this.em.createQuery("DELETE FROM Auction a WHERE a.id = :id").setParameter("id",id).executeUpdate();
         return auctionNr == 1;
     }
     

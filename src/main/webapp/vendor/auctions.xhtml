@@ -58,34 +58,34 @@
         <div class="page-content p-1">
             <div class="col-md-12 mt-3 mx-0 p-0">
                 <h3>All auctions</h3>
-                <h:dataTable value="#{auction.auctions}" var="prodv" class="table mt-3">
+                <h:dataTable value="#{auction.auctions}" var="auctionv" class="table mt-3">
                     <h:column>
                         <f:facet name="header">Open</f:facet>
-                        #{prodv.status}
+                        #{auctionv.status}
                     </h:column>
                     <h:column>
                         <f:facet name="header">Date</f:facet>
-                        #{prodv.postDate}
+                        #{auctionv.postDate}
                     </h:column>
                     <h:column>
                         <f:facet name="header">Needed by</f:facet>
-                        #{prodv.dueDate}
+                        #{auctionv.dueDate}
                     </h:column>
                     <h:column>
                         <f:facet name="header">Product</f:facet>
-                        #{prodv.product}
+                        #{auctionv.product}
                     </h:column>
                     <h:column>
                         <f:facet name="header">Quantity</f:facet>
-                        #{prodv.quantity}
+                        #{auctionv.quantity}
                     </h:column>
                     <h:column>
                         <h:link value="Create bid" outcome="/vendor/create-bid.xhtml?faces-redirect=true">
-                            <f:param name="auctionId" value="#{prodv.id}"/>
+                            <f:param name="auctionId" value="#{auctionv.id}"/>
                         </h:link>
                     </h:column>
                     <h:column>
-                        <h:outputText value="#{'Offers: '.concat(prodv.bidList.size())}"/>
+                        <h:outputText value="#{'Offers: '.concat(auctionv.bidList.size())}"/>
                     </h:column>
                 </h:dataTable>
             </div>

@@ -8,7 +8,7 @@
     <f:metadata>
         <f:event listener="#{login.isAdmin}" type="preRenderView"/>
 
-        <f:viewParam name="orderId" value="#{bidService.auctionId}"/>
+        <f:viewParam name="auctionId" value="#{bidService.auctionId}"/>
         <f:viewAction action="#{bidService.getAllBidsForAnAuction}"/>
     </f:metadata>
 
@@ -25,7 +25,7 @@
             </div>
             <ul class="nav flex-column bg-white mb-0">
                 <li>
-                    <h:link class="nav-link text-dark font-italic" target="_self" value="auctions"
+                    <h:link class="nav-link text-dark font-italic" target="_self" value="Auctions"
                             outcome="/admin/auctions?faces-redirect=true"/>
                 </li>
                 <li>
@@ -47,49 +47,51 @@
 
     <!-- CONTENT -->
     <ui:define name="content">
-        <div class="row mt-3 mx-0">
-            <div class="col-md-12 mx-0 mt-4 p-0">
-                <h3>Auction Number: <h:outputText value="#{bidService.auction.id}"/></h3>
-                <h:dataTable class="table mt-3" value="#{bidService.bids}" var="bidv">
-                    <h:column>
-                        <f:facet name="header">Offer ID</f:facet>
-                        #{bidv.bidId}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Creation Date</f:facet>
-                        #{bidv.bidDate}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Price</f:facet>
-                        #{bidv.price}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Accepted</f:facet>
-                        #{bidv.status}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">User</f:facet>
-                        #{bidv.user.username}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Company</f:facet>
-                        #{bidv.user.company.name}
-                    </h:column>
-                    <h:column>
-                        <h:link value="Accept" outcome="#{bidService.acceptBid()}">
-                            <f:param name="bidId" value="#{bidv.bidId}"/>
-                            <f:param name="orderId" value="#{bidService.auctionId}"/>
-                        </h:link>
-                    </h:column>
-                    <h:column>
-                        <h:form>
-                            <h:link value="Decline" outcome="#{bidService.declineBid()}">
+        <div class="page-content">
+            <div class="row mt-3 mx-0">
+                <div class="col-md-12 mx-0 mt-4 p-0">
+                    <h3>Auction Number: <h:outputText value="#{bidService.auction.id}"/></h3>
+                    <h:dataTable class="table mt-3" value="#{bidService.bids}" var="bidv">
+                        <h:column>
+                            <f:facet name="header">Offer ID</f:facet>
+                            #{bidv.bidId}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Creation Date</f:facet>
+                            #{bidv.bidDate}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Price</f:facet>
+                            #{bidv.price}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Accepted</f:facet>
+                            #{bidv.status}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">User</f:facet>
+                            #{bidv.user.username}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Company</f:facet>
+                            #{bidv.user.company.name}
+                        </h:column>
+                        <h:column>
+                            <h:link value="Accept" outcome="#{bidService.acceptBid()}">
                                 <f:param name="bidId" value="#{bidv.bidId}"/>
-                                <f:param name="orderId" value="#{bidService.auctionId}"/>
+                                <f:param name="auctionId" value="#{bidService.auctionId}"/>
                             </h:link>
-                        </h:form>
-                    </h:column>
-                </h:dataTable>
+                        </h:column>
+                        <h:column>
+                            <h:form>
+                                <h:link value="Decline" outcome="#{bidService.declineBid()}">
+                                    <f:param name="bidId" value="#{bidv.bidId}"/>
+                                    <f:param name="auctionId" value="#{bidService.auctionId}"/>
+                                </h:link>
+                            </h:form>
+                        </h:column>
+                    </h:dataTable>
+                </div>
             </div>
         </div>
     </ui:define>

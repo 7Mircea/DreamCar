@@ -32,6 +32,8 @@ import data.model.Auction;
 import data.model.Users;
 import service.user.LoginService;
 
+import static util.Constants.DATE_FORMAT;
+
 /**
  *
  * @author Gheoace Mircea
@@ -81,7 +83,7 @@ public class BidService {
 
         // Get the current date
         Date date = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat(DATE_FORMAT);
         String offerDate = formatter.format(date);
 
         try {

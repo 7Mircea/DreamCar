@@ -63,50 +63,50 @@
         <div class="page-content p-1">
             <div class="col-md-12 mt-4 mx-0 p-0">
                 <h3>All auctions</h3>
-                <h:dataTable value="#{auction.auctions}" var="prodv" class="table mt-3">
+                <h:dataTable value="#{auction.auctions}" var="auctionv" class="table mt-3">
                     <h:column>
                         <f:facet name="header">Auction Number</f:facet>
-                        #{prodv.id}
+                        #{auctionv.id}
                     </h:column>
                     <h:column>
                         <f:facet name="header">Open</f:facet>
-                        #{prodv.status}
+                        #{auctionv.status}
                     </h:column>
                     <h:column>
                         <f:facet name="header">Date</f:facet>
-                        #{prodv.postDate}
+                        #{auctionv.postDate}
                     </h:column>
                     <h:column>
                         <f:facet name="header">Needed by</f:facet>
-                        #{prodv.dueDate}
+                        #{auctionv.dueDate}
                     </h:column>
                     <h:column>
                         <f:facet name="header">Component</f:facet>
-                        #{prodv.product}
+                        #{auctionv.product}
                     </h:column>
                     <h:column>
                         <f:facet name="header">Quantity</f:facet>
-                        #{prodv.quantity}
+                        #{auctionv.quantity}
                     </h:column>
                     <h:column>
-                        <h:link value="#{'Bids: '.concat(prodv.bidList.size())}"
+                        <h:link value="#{'Bids: '.concat(auctionv.bidList.size())}"
                                 outcome="/admin/bids.xhtml?faces-redirect=true">
-                            <f:param name="orderId" value="#{prodv.id}"/>
+                            <f:param name="auctionId" value="#{auctionv.id}"/>
                         </h:link>
                     </h:column>
                     <h:column>
                         <h:form>
-                            <h:commandLink value="Close" action="#{auction.closeAuction(prodv.id)}"/>
+                            <h:commandLink value="Close" action="#{auction.closeAuction(auctionv.id)}"/>
                         </h:form>
                     </h:column>
                     <h:column>
                         <h:form>
-                            <h:commandLink value="Open" action="#{auction.openAuction(prodv.id)}"/>
+                            <h:commandLink value="Open" action="#{auction.openAuction(auctionv.id)}"/>
                         </h:form>
                     </h:column>
                     <h:column>
                         <h:form>
-                            <h:commandLink value="Delete" action="#{auction.deleteAuction(prodv.id)}"/>
+                            <h:commandLink value="Delete" action="#{auction.deleteAuction(auctionv.id)}"/>
                         </h:form>
                     </h:column>
                 </h:dataTable>
