@@ -40,7 +40,7 @@ public class HelloService {
 
     public void checkExpiredAuctions() {
         List<Auction> auctions = auctionDao.getAllAuctions();
-        auctions.stream().parallel().forEach(this::forEachAuction);
+        auctions.stream().parallel().filter(Auction::getStatus).forEach(this::forEachAuction);
     }
 
     public void forEachAuction(Auction auction) {
@@ -55,7 +55,7 @@ public class HelloService {
             return;
         }
         if (date != null) {
-            if (currentDate.before(date)) {
+            if (currentDate.after(date)) {
                 auction.setStatus(Boolean.FALSE);
 
                 String mail = getMailForMostAffordableBid(auction.getBidList());

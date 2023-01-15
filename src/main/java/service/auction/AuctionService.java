@@ -1,15 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package service.auction;
 
 import data.dao.AuctionDao;
-import data.dao.CharacteristicDao;
 import data.dao.ProductDao;
 import data.model.Auction;
-import data.model.Characteristic;
 import data.model.Product;
 
 import javax.annotation.PostConstruct;
@@ -62,33 +55,8 @@ public class AuctionService {
         return this.productIds;
     }
 
-    public Product getProduct() {
-        return product;
-    }
-
-//    public void setProduct(Product product) {
-//        this.product = product;
-//    }
-
-    public void setProduct() {
-        System.out.println("product id is : " + productId);
-        if (productId > 0) {
-            this.product = productDao.getProductById(productId);
-            System.out.println("product is " + product);
-        }
-    }
 
     public void addAuction() {
-        product = productDao.getProductById(productId);
-        System.out.println("we are in addAuction()");
-        System.out.println("utx is null" + (utx == null));
-        System.out.println("auction is null " + (auction == null));
-        if(auction != null) {
-            System.out.println(auction);
-        }
-        System.out.println("product is null " + (product == null));
-        System.out.println("productDao is null " + (productDao == null));
-        System.out.println("auctionDao is null " + (auctionDao == null));
         try {
             utx.begin();
             this.auction.setStatus(Boolean.TRUE);
