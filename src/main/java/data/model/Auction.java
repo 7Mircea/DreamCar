@@ -49,9 +49,12 @@ public class Auction implements Serializable {
     private Product product;
     @Column(name = "quantity")
     private Integer quantity;//quantity
+
+    @Column(name="max_wanted_price")
+    private Integer maxWantedPrice;
+
     @OneToMany(targetEntity = Bid.class,cascade = CascadeType.ALL, mappedBy = "auction", fetch = FetchType.EAGER)
     private List<Bid> bidList;
-
 
     public Auction() {
     }
@@ -106,6 +109,14 @@ public class Auction implements Serializable {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public Integer getMaxWantedPrice() {
+        return maxWantedPrice;
+    }
+
+    public void setMaxWantedPrice(Integer maxWantedPrice) {
+        this.maxWantedPrice = maxWantedPrice;
     }
 
     @XmlTransient

@@ -11,6 +11,6 @@ public class ScheduledService {
 
     @Schedule(second="*/10", minute="*",hour="*", persistent=false)
     public void doWork(){
-        taskService.checkExpiredAuctions();
+        taskService.checkAuctions();
     }
 }

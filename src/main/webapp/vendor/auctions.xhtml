@@ -80,7 +80,7 @@
                         #{auctionv.quantity}
                     </h:column>
                     <h:column>
-                        <h:link value="Create bid" outcome="/vendor/create-bid.xhtml?faces-redirect=true">
+                        <h:link value="Create bid" outcome="/vendor/create-bid.xhtml?faces-redirect=true" rendered="#{auctionv.status}">
                             <f:param name="auctionId" value="#{auctionv.id}"/>
                         </h:link>
                     </h:column>

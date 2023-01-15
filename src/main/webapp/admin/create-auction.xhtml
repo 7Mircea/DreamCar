@@ -70,6 +70,10 @@
                                 <h:inputText id="qt" class="form-control" value="#{auction.auction.quantity}"/>
                             </div>
                             <div class="form-group">
+                                <h:outputLabel for="max-wanted-price" value="Max wanted price"/>
+                                <h:inputText id="max-wanted-price" class="form-control" value="#{auction.auction.maxWantedPrice}"/>
+                            </div>
+                            <div class="form-group">
                                 <h:commandButton value="Submit" class="btn btn-light btn-lg btn-block"
                                                  action="#{auction.addAuction}"/>
                             </div>

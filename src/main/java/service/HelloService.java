@@ -26,9 +26,7 @@ public class HelloService {
      * @return email for the most affordable bid. If there's no such bid, empty string is returned
      */
     public static String getMailForMostAffordableBid(List<Bid> bidList) {
-        BidComparator comparator = new BidComparator();
-
-        Optional<Bid> bestBid = bidList.stream().min(comparator);
+        Optional<Bid> bestBid = bidList.stream().min(BidComparator::compare);
         if (bestBid.isPresent())
             return bestBid.get().getUser().getEmail();
         return "";
@@ -38,7 +36,7 @@ public class HelloService {
         return "Hello from control: " + System.currentTimeMillis();
     }
 
-    public void checkExpiredAuctions() {
+    public void checkAuctions() {
         List<Auction> auctions = auctionDao.getAllAuctions();
         auctions.stream().parallel().filter(Auction::getStatus).forEach(this::forEachAuction);
     }
@@ -54,16 +52,22 @@ public class HelloService {
             System.out.println(e.getMessage());
             return;
         }
+        List<Bid> bidList = auction.getBidList();
         if (date != null) {
-            if (currentDate.after(date)) {
+            if (currentDate.after(date)||isABBidThatMatchesTheTargetPrice(bidList, auction.getMaxWantedPrice())) {
                 auction.setStatus(Boolean.FALSE);
 
-                String mail = getMailForMostAffordableBid(auction.getBidList());
+                String mail = getMailForMostAffordableBid(bidList);
                 if (!mail.isEmpty())
                     sendMail(mail);
             }
         }
 
+    }
+
+    private boolean isABBidThatMatchesTheTargetPrice(List<Bid> bidList, Integer maxPrice) {
+        Optional<Bid> minBid = bidList.stream().filter(bid -> bid.getPrice() <= maxPrice).min(BidComparator::compare);
+        return minBid.isPresent();
     }
 
     private void sendMail(String mail) {
