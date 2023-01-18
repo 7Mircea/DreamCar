@@ -30,9 +30,7 @@ public class BidDao {
     }
 
     public boolean deleteBid(int id) {
-        Query query = this.em.createQuery("DELETE FROM Bid b WHERE b.id = :id");
-        query.setParameter("id", id);
-        int result = query.executeUpdate();
+        int result = this.em.createQuery("DELETE FROM Bid b WHERE b.id = :id", Bid.class).setParameter("id",id).executeUpdate();
         return result > 0;
     }
 

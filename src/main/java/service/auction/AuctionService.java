@@ -61,7 +61,6 @@ public class AuctionService {
             utx.begin();
             this.auction.setStatus(Boolean.TRUE);
             this.auction.setProduct(productDao.getProductById(productId));
-            this.productDao.addProduct(product);
             this.auctionDao.addAuction(this.auction);
             utx.commit();
 

@@ -33,8 +33,8 @@ public class AuctionDao {
     }
     
     public boolean deleteAuction(int id){
-        Integer deletedBids=this.em.createNamedQuery("Bid.deleteBidByAuction", Integer.class).setParameter("auctionId",id).executeUpdate();
-        System.out.println("deletedBids : " + deletedBids);
+        int deletedBids=this.em.createNamedQuery("Bid.deleteBidByAuction", Integer.class).setParameter("auctionId",id).executeUpdate();
+//        System.out.println("deletedBids : " + deletedBids);
         int auctionNr = this.em.createQuery("DELETE FROM Auction a WHERE a.id = :id").setParameter("id",id).executeUpdate();
         return auctionNr == 1;
     }
