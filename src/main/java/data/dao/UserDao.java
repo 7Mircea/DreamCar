@@ -30,37 +30,19 @@ public class UserDao {
     }
 
     public Users getUser(String username, String password) {
-
-        // Set the query
-        String query = "SELECT u from Users u where u.username = :user and u.password = :pass";
-
-        // Interogate the database
         try {
-            Query q = this.em.createQuery(query);
-
-            q.setParameter("user", username);
-            q.setParameter("pass", password);
-
-            // Return the user
-            return (Users) q.getSingleResult();
-
+            return this.em.createNamedQuery("User.findByUsernameAndPassword", Users.class).setParameter("user", username).setParameter("pass", password).getSingleResult();
         } catch (NoResultException e) {
-
-            // If no result, then return null
             return null;
         }
     }
     
     public List<Users> getAllVendors(String role){
-        List<Users> query = this.em.createNamedQuery("User.findByRole", Users.class).setParameter("role", role).getResultList();
-        return query;
+        return this.em.createNamedQuery("User.findByRole", Users.class).setParameter("role", role).getResultList();
     }
     
     public Users getUserById(int id){
-        Query query = this.em.createNamedQuery("User.findById");
-        query.setParameter("id", id);
-        Users users = (Users) query.getSingleResult();
-        return users;
+        return this.em.createNamedQuery("User.findById", Users.class).setParameter("id",id).getSingleResult();
     }
 
     public EntityManager getEm() {

@@ -148,10 +148,7 @@ public class Auction implements Serializable {
         return true;
     }
 
-//    @Override
-//    public String toString() {
-//        return "model.Auction[ AuctionId=" + id + " ]";
-//    }
+
 
 
     @Override

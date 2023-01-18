@@ -23,6 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
         , @NamedQuery(name = "User.findById", query = "SELECT u FROM Users u WHERE u.id = :id")
         , @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM Users u WHERE u.username = :username")
         , @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password")
+        , @NamedQuery(name = "User.findByUsernameAndPassword",query = "SELECT u from Users u where u.username = :user and u.password = :pass")
         , @NamedQuery(name = "User.findByRole", query = "SELECT u FROM Users u WHERE u.role = :role")})
 public class Users implements Serializable {
 

@@ -3,6 +3,7 @@ package data.model;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "PRODUCT")
@@ -11,7 +12,8 @@ import javax.xml.bind.annotation.XmlRootElement;
         @NamedQuery(name = "Product.findById", query = "SELECT p FROM Product p where p.id=:productId"),
 @NamedQuery(name = "Product.findAllProductIds",query = "SELECT p.id FROM Product p"),
 @NamedQuery(name = "Product.findLastProduct",query = "SELECT p from Product p where p.id = (select max(p.id) from Product p)")})
-public class Product {
+public class Product implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column

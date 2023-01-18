@@ -3,13 +3,15 @@ package data.model;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "CHARACTERISTIC")
 @XmlRootElement
 @NamedQueries({@NamedQuery(name="Characteristic.findAll",query = "SELECT c from Characteristic c"),
         @NamedQuery(name="Characteristic.findCharacteristicForProduct",query = "SELECT c from Characteristic c where c.productId = :productId")})
-public class Characteristic {
+public class Characteristic implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     @Column(name = "product_id")
     Integer productId;
