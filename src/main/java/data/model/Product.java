@@ -9,9 +9,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({@NamedQuery(name = "Product.findAll", query = "SELECT p from Product p"),
         @NamedQuery(name = "Product.findById", query = "SELECT p FROM Product p where p.id=:productId"),
-@NamedQuery(name = "Product.findAllProductIds",query = "SELECT p.id FROM Product p")})
+@NamedQuery(name = "Product.findAllProductIds",query = "SELECT p.id FROM Product p"),
+@NamedQuery(name = "Product.findLastProduct",query = "SELECT p from Product p where p.id = (select max(p.id) from Product p)")})
 public class Product {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     Integer id;
     @Size(min = 2,max = 45)

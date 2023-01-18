@@ -15,7 +15,8 @@ public class ProductDao {
     private EntityManager em;
 
     public void addProduct(Product product) {
-        //TODO implement
+        em.persist(product);
+        em.flush();
     }
 
     public void deleteProduct() {
@@ -33,5 +34,17 @@ public class ProductDao {
 
     public List<Integer> getAllProductIds() {
         return this.em.createNamedQuery("Product.findAllProductIds",Integer.class).getResultList();
+    }
+
+    public Product getLastProduct() {
+        return this.em.createNamedQuery("Product.findLastProduct", Product.class).getSingleResult();
+    }
+
+    public EntityManager getEm() {
+        return em;
+    }
+
+    public void setEm(EntityManager em) {
+        this.em = em;
     }
 }

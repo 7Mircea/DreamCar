@@ -65,6 +65,7 @@
                             <h:selectOneMenu value="#{auction.productId}">
                                 <f:selectItems value="#{auction.productIds}"/>
                             </h:selectOneMenu>
+                            <h:link value="Create product" outcome="/admin/create-product?faces-redirect=true"/>
                             <div class="form-group">
                                 <h:outputLabel for="qt" value="Quantity"/>
                                 <h:inputText id="qt" class="form-control" value="#{auction.auction.quantity}"/>
