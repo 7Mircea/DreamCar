@@ -10,7 +10,7 @@
                           idle-timeout-in-seconds="300" is-connection-validation-required="false"
                           is-isolation-level-guaranteed="true" lazy-connection-association="false"
                           lazy-connection-enlistment="false" match-connections="false" max-connection-usage-count="0"
-                          max-pool-size="32" max-wait-time-in-millis="60000" name="derby_net_dreamcar_studentPool"
+                          max-pool-size="32" max-wait-time-in-millis="60000" name="mysqlConnectionPool"
                           non-transactional-connections="false" pool-resize-quantity="2" res-type="javax.sql.DataSource"
                           statement-timeout-in-seconds="-1" steady-pool-size="8"
                           validate-atmost-once-period-in-seconds="0" wrap-jdbc-objects="false"
@@ -20,12 +20,12 @@
         <property name="serverTimezone" value="UTC"/>
         <property name="serverName" value="localhost"/>
         <property name="portNumber" value="3306"/>
-        <property name="databaseName" value="dreamcar"/>
-        <property name="User" value="student2"/>
-        <property name="Password" value="test"/>
-        <property name="URL" value="jdbc:mysql://localhost:3306/dreamcar"/>
+        <property name="databaseName" value="dreamcardb"/>
+        <property name="User" value="admDreamcar"/>
+        <property name="Password" value="1234Test"/>
+        <property name="URL" value="jdbc:mysql://localhost:3306/dreamcardb"/>
         <property name="driverClass" value="com.mysql.cj.jdbc.MysqlConnectionPoolDataSource"/>
     </jdbc-connection-pool>
-    <jdbc-resource enabled="true" jndi-name="java:app/conexiune2" object-type="user"
-                   pool-name="derby_net_dreamcar_studentPool"/>
+    <jdbc-resource enabled="true" jndi-name="java:app/connection1" object-type="user"
+                   pool-name="mysqlConnectionPool"/>
 </resources>

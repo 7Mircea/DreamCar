@@ -1,19 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-  <persistence-unit name="dreamcarPU" transaction-type="JTA">
-    <jta-data-source>java:app/conexiune2</jta-data-source>
+  <persistence-unit name="dreamcarCompanyPU" transaction-type="JTA">
+    <jta-data-source>java:app/connection1</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="none"/>
-      <!-- Allowed values for javax.persistence.schema-generation.database.action are
-
-    none (that doesn't serve anything...)
-    create (which only works the first time the application is started because all further starts fail due to most databases (e.g. derby 11.x) fail if a schema that already exist is created
-    drop-and-create (which wouldn't ever persist any data which raises the question why it's part of a persistence standard specification - assuming debugging purpose)
-    drop (symetrically fails create succeeds
- -->
-<!--      <property name="eclipselink.target-database"-->
-<!--                value="PostgreSQL"/>-->
     </properties>
   </persistence-unit>
 </persistence>
